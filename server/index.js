@@ -13,7 +13,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1/auth", userRouter);
 
 connectDB();
 
