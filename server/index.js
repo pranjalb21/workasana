@@ -4,6 +4,7 @@ import cors from "cors";
 import userRouter from "./routes/user.routes.js";
 import taskRouter from "./routes/tasks.routes.js";
 import teamRouter from "./routes/teams.routes.js";
+import projectRouter from "./routes/project.routes.js"
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors(corsOptions));
 app.use(`/api/${process.env.API_VERSION}/auth`, userRouter);
 app.use(`/api/${process.env.API_VERSION}/tasks`, taskRouter);
 app.use(`/api/${process.env.API_VERSION}/teams`, teamRouter);
+app.use(`/api/${process.env.API_VERSION}/projects`, projectRouter);
 
 connectDB();
 

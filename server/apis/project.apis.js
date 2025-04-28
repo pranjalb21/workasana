@@ -1,14 +1,14 @@
-import Team from "../models/team.models.js";
+import Project from "../models/Project.models.js";
 import generateError from "../utils/generateError.js";
 import teamSchema from "../utils/validators/team.validator.js";
 
-export const createTeam = async (req, res) => {
+export const createProject = async (req, res) => {
     try {
         const parsedData = teamSchema.parse(req.body);
-        const newTeam = await Team.create(parsedData);
+        const newProject = await Project.create(parsedData);
         res.status(201).json({
-            message: "Team created successfully.",
-            data: newTeam,
+            message: "Project created successfully.",
+            data: newProject,
         });
     } catch (error) {
         // Combine all errors in an array
@@ -16,23 +16,23 @@ export const createTeam = async (req, res) => {
 
         // Return error response
         return res.status(500).json({
-            error: "Error occured while creating team.",
+            error: "Error occured while creating project.",
             message: errors,
         });
     }
 };
 
-export const getTeams = async (req, res) => {
+export const getProjects = async (req, res) => {
     try {
-        const teams = await Team.find();
+        const teams = await Project.find();
         res.status(200).json({
-            message: "Teams fetched successfully.",
+            message: "Projects fetched successfully.",
             data: teams,
         });
     } catch (error) {
         // Return error response
         return res.status(500).json({
-            error: "Error occured while fetching teams.",
+            error: "Error occured while fetching projects.",
             message: error.message,
         });
     }
