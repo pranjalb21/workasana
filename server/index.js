@@ -6,6 +6,7 @@ import taskRouter from "./routes/tasks.route.js";
 import teamRouter from "./routes/teams.route.js";
 import projectRouter from "./routes/project.route.js";
 import tagRouter from "./routes/tag.route.js";
+import reportRouter from "./routes/report.route.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -22,6 +23,7 @@ app.use(`/api/${process.env.API_VERSION}/tasks`, taskRouter);
 app.use(`/api/${process.env.API_VERSION}/teams`, teamRouter);
 app.use(`/api/${process.env.API_VERSION}/projects`, projectRouter);
 app.use(`/api/${process.env.API_VERSION}/tags`, tagRouter);
+app.use(`/api/${process.env.API_VERSION}/reports`, reportRouter);
 
 connectDB();
 
