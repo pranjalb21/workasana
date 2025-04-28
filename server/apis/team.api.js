@@ -1,4 +1,4 @@
-import Team from "../models/team.models.js";
+import Team from "../models/team.model.js";
 import generateError from "../utils/generateError.js";
 import teamSchema from "../utils/validators/team.validator.js";
 

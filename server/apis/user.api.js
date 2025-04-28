@@ -1,4 +1,4 @@
-import User from "../models/user.models.js";
+import User from "../models/user.model.js";
 import generateError from "../utils/generateError.js";
 import loginSchema from "../utils/validators/login.validator.js";
 import jwt from "jsonwebtoken";

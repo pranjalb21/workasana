@@ -4,7 +4,7 @@ import {
     deleteTask,
     getTaskById,
     updateTask,
-} from "../apis/task.apis.js";
+} from "../apis/task.api.js";
 import verifyJwt from "../middlewares/verifyJwt.js";
 
 const router = express.Router();

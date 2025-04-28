@@ -1,10 +1,11 @@
 import connectDB from "./utils/db/db.connect.js";
 import express from "express";
 import cors from "cors";
-import userRouter from "./routes/user.routes.js";
-import taskRouter from "./routes/tasks.routes.js";
-import teamRouter from "./routes/teams.routes.js";
-import projectRouter from "./routes/project.routes.js"
+import userRouter from "./routes/user.route.js";
+import taskRouter from "./routes/tasks.route.js";
+import teamRouter from "./routes/teams.route.js";
+import projectRouter from "./routes/project.route.js";
+import tagRouter from "./routes/tag.route.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -20,6 +21,7 @@ app.use(`/api/${process.env.API_VERSION}/auth`, userRouter);
 app.use(`/api/${process.env.API_VERSION}/tasks`, taskRouter);
 app.use(`/api/${process.env.API_VERSION}/teams`, teamRouter);
 app.use(`/api/${process.env.API_VERSION}/projects`, projectRouter);
+app.use(`/api/${process.env.API_VERSION}/tags`, tagRouter);
 
 connectDB();
 

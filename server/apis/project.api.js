@@ -1,4 +1,4 @@
-import Project from "../models/Project.models.js";
+import Project from "../models/project.model.js";
 import generateError from "../utils/generateError.js";
 import teamSchema from "../utils/validators/team.validator.js";
 

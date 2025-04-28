@@ -1,4 +1,4 @@
-import Task from "../models/task.models.js";
+import Task from "../models/task.model.js";
 import generateError from "../utils/generateError.js";
 import taskSchema from "../utils/validators/task.validator.js";
 
