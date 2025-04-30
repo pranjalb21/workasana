@@ -1,0 +1,123 @@
+:root {
+    --nav-background-color: #cadedf;
+    --nav-text-color: #2c7770;
+    --nav-hover-background-color: #95bdb9;
+    --nav-hover-text-color: #182423;
+}
+main {
+    min-width: 100svw;
+    min-height: 100svh;
+    /* background-color: rgb(245, 251, 249); */
+}
+
+.sideNav {
+    background-color: var(--nav-background-color);
+    color: var(--nav-text-color);
+    min-width: 12rem;
+}
+@media (max-width: 768px) {
+    .sideNav {
+        min-width: 1rem;
+    }
+}
+
+.sideNav-ul {
+    padding-inline-start: 0;
+    padding: 0.5rem 0.6rem;
+    list-style: none;
+}
+.sideNav-ul .navlink {
+    padding: 0.4rem 0.6rem;
+    margin-bottom: 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--nav-text-color);
+    font-weight: 500;
+}
+.sideNav-ul .navlink:hover {
+    background-color: var(--nav-hover-background-color);
+    color: var(--nav-hover-text-color);
+    transition: 0.4s ease-out;
+}
+.sideNav-ul a {
+    text-decoration: none;
+}
+
+.sideNav-ul .active {
+    background-color: var(--nav-hover-background-color);
+    color: var(--nav-hover-text-color);
+}
+
+.sideNav h4 {
+    color: darkgreen;
+}
+
+.pcard {
+    width: 20rem;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    height: 12rem;
+    overflow: hidden;
+}
+
+.cardbadge {
+    font-size: 10px;
+    padding: 2px 5px;
+    font-weight: 700;
+    border-radius: 5px;
+}
+
+.completed {
+    color: #4d7a76;
+    background-color: #bbe0dc;
+}
+.inProgress {
+    color: rgb(230, 169, 3);
+    background-color: rgb(247, 231, 194);
+}
+.pcard .description,
+.tcard .description {
+    font-size: 14px;
+    text-overflow: ellipsis;
+    /* height: 100px; */
+    overflow: hidden;
+    color: gray;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.select {
+    outline: none;
+}
+
+.tcard {
+    width: 20rem;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    height: 10rem;
+    overflow: hidden;
+}
+
+.namecard-container {
+    list-style: none;
+    padding-inline-start: 0;
+    display: flex;
+    gap: 5px;
+}
+.namecard {
+    background-color: #64c7bdfb;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    font-size: 14px;
+    padding: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.171);
+}
+.namecard:not(:first-child) {
+    margin-left: -10px;
+}
