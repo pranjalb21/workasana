@@ -21,6 +21,7 @@ export default function SignupForm() {
             inputError.password = "Password should be atleast 5 characters.";
         }
         if (!formData.name || !formData.name.length >= 1) {
+            inputError.name = "Name is required."
         }
         setErrors(inputError);
         return Object.keys(inputError).length;

@@ -9,7 +9,7 @@ export default function TaskCard({ task }) {
     return (
         <div className="bg-light tcard">
             <span
-                class={`cardbadge d-inline-block ${
+                className={`cardbadge d-inline-block ${
                     task.status === "Completed" ? "completed" : "inProgress"
                 }`}
             >

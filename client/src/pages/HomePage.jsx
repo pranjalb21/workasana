@@ -3,6 +3,8 @@ import Layout from "../components/Layout";
 import ProjectCard from "../components/ProjectCard";
 import TaskCard from "../components/TaskCard";
 import { CiSearch } from "react-icons/ci";
+import ProjectForm from "../components/ProjectForm";
+import TaskForm from "../components/TaskForm";
 
 const projectDetailsList = [
     {
@@ -66,6 +68,8 @@ export default function HomePage() {
     return (
         <Layout>
             <div className="container mt-4 px-4">
+                {showProject && <ProjectForm setShowProject={setShowProject} />}
+                {showTask && <TaskForm setShowTask={setShowTask} />}
                 <section>
                     <div className="input-group mb-3">
                         <input
