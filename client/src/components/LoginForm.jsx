@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SiNginxproxymanager } from "react-icons/si";
 import { Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
     const defaultData = {
@@ -9,6 +10,7 @@ export default function LoginForm() {
     };
     const [formData, setFormData] = useState(defaultData);
     const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
 
     const validateInput = () => {
         const inputError = {};
@@ -72,19 +74,38 @@ export default function LoginForm() {
                         <label htmlFor="password" className="form-label">
                             Password
                         </label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            className="form-control"
-                            placeholder="Enter your password"
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    [e.target.name]: e.target.value,
-                                }))
-                            }
-                        />
+                        <div className="position-relative">
+                            <input
+                                type={`${showPassword ? "text" : "password"}`}
+                                id="password"
+                                name="password"
+                                className="form-control"
+                                placeholder="Enter your password"
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        [e.target.name]: e.target.value,
+                                    }))
+                                }
+                            />
+                            <span>
+                                {!showPassword ? (
+                                    <FaEye
+                                        className="showPassword"
+                                        onClick={() =>
+                                            setShowPassword((prev) => !prev)
+                                        }
+                                    />
+                                ) : (
+                                    <FaEyeSlash
+                                        className="showPassword"
+                                        onClick={() =>
+                                            setShowPassword((prev) => !prev)
+                                        }
+                                    />
+                                )}
+                            </span>
+                        </div>
                         {errors.password && (
                             <p className="text-danger">
                                 * <small>{errors.password}</small>

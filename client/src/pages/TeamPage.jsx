@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import TeamForm from "../components/TeamForm";
+import { NavLink } from "react-router-dom";
 
 const task = [
     { id: 11, name: "John Doe" },
@@ -43,9 +44,7 @@ export default function TeamPage() {
     return (
         <Layout>
             <div className="container py-5 px-3">
-                {
-                    showTeamForm && <TeamForm setShowTeamForm={setShowTeamForm} />
-                }
+                {showTeamForm && <TeamForm setShowTeamForm={setShowTeamForm} />}
                 <div className="d-flex">
                     <h3 className="fs-3">Teams</h3>
                     <button
@@ -57,37 +56,57 @@ export default function TeamPage() {
                 </div>{" "}
                 <div className="row mt-4">
                     <div className="col-md-4 mb-4">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">Designing Team</h5>
-                                <ul className="namecard-container">
-                                    {task.map((owner) => (
-                                        <li className="namecard" key={owner.id}>
-                                            {generateNameKeyword(owner.name)}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className="card bg-light">
+                            <NavLink className="text-decoration-none">
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        Designing Team <span>&rarr;</span>
+                                    </h5>
+                                    <ul className="namecard-container">
+                                        {task.map((owner) => (
+                                            <li
+                                                className="namecard"
+                                                key={owner.id}
+                                            >
+                                                {generateNameKeyword(
+                                                    owner.name
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </NavLink>
                         </div>
                     </div>
                     <div className="col-md-4 mb-4">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">Designing Team</h5>
-                                <ul className="namecard-container">
-                                    {task.map((owner) => (
-                                        <li className="namecard" key={owner.id}>
-                                            {generateNameKeyword(owner.name)}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className="card bg-light">
+                            <NavLink className="text-decoration-none">
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        Designing Team <span>&rarr;</span>
+                                    </h5>
+                                    <ul className="namecard-container">
+                                        {task.map((owner) => (
+                                            <li
+                                                className="namecard"
+                                                key={owner.id}
+                                            >
+                                                {generateNameKeyword(
+                                                    owner.name
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </NavLink>
                         </div>
                     </div>
                     <div className="col-md-4 mb-4">
-                        <div className="card">
+                        <div className="card bg-light">
                             <div className="card-body">
-                                <h5 className="card-title">Designing Team</h5>
+                                <h5 className="card-title">
+                                    Designing Team <span>&rarr;</span>
+                                </h5>
                                 <ul className="namecard-container">
                                     {task.map((owner) => (
                                         <li className="namecard" key={owner.id}>

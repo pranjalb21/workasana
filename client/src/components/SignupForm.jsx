@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SiNginxproxymanager } from "react-icons/si";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function SignupForm() {
@@ -10,6 +11,7 @@ export default function SignupForm() {
     };
     const [formData, setFormData] = useState(defaultData);
     const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
 
     const validateInput = () => {
         const inputError = {};
@@ -21,7 +23,7 @@ export default function SignupForm() {
             inputError.password = "Password should be atleast 5 characters.";
         }
         if (!formData.name || !formData.name.length >= 1) {
-            inputError.name = "Name is required."
+            inputError.name = "Name is required.";
         }
         setErrors(inputError);
         return Object.keys(inputError).length;
@@ -99,19 +101,38 @@ export default function SignupForm() {
                         <label htmlFor="password" className="form-label">
                             Password
                         </label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            className="form-control"
-                            placeholder="Enter your password"
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    [e.target.name]: e.target.value,
-                                }))
-                            }
-                        />
+                        <div className="position-relative">
+                            <input
+                                type={`${showPassword ? "text" : "password"}`}
+                                id="password"
+                                name="password"
+                                className="form-control"
+                                placeholder="Enter your password"
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        [e.target.name]: e.target.value,
+                                    }))
+                                }
+                            />
+                            <span>
+                                {!showPassword ? (
+                                    <FaEye
+                                        className="showPassword"
+                                        onClick={() =>
+                                            setShowPassword((prev) => !prev)
+                                        }
+                                    />
+                                ) : (
+                                    <FaEyeSlash
+                                        className="showPassword"
+                                        onClick={() =>
+                                            setShowPassword((prev) => !prev)
+                                        }
+                                    />
+                                )}
+                            </span>
+                        </div>
                         {errors.password && (
                             <p className="text-danger">
                                 * <small>{errors.password}</small>
