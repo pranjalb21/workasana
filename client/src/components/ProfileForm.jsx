@@ -35,10 +35,10 @@ export default function ProfileForm() {
         <div
             style={{
                 maxWidth: "50rem",
-                minWidth: "30rem",
+                minWidth: "25rem",
                 maxHeight: "40rem",
             }}
-            className=" bg-light py-4 px-5 shadow-sm rounded"
+            className="bg-light border py-4 px-5 shadow-sm rounded"
         >
             <p className="fs-4 m-0 text-end">
                 Welcome{" "}

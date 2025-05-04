@@ -95,7 +95,7 @@ export default function HomePage() {
     }, []);
     return (
         <Layout>
-            <div className="container mt-4 px-4">
+            <div className="container mt-5 px-4">
                 {showProject && <ProjectForm setShowProject={setShowProject} />}
                 {showTask && <TaskForm setShowTask={setShowTask} />}
                 <section>

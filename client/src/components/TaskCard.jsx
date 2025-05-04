@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function TaskCard({ task }) {
     const generateNameKeyword = (name) => {
@@ -15,7 +16,10 @@ export default function TaskCard({ task }) {
             >
                 {task.status}
             </span>
-            <h6 className="fs-6 fw-bold mt-2 ">{task.name}</h6>
+            <h6 className="fs-6 fw-bold mt-2 heading">
+                <Link className="text-decoration-none">{task.name}</Link>
+                <span className="go">&rarr;</span>
+            </h6>
             <p className="description">Due on: {task.timeToClose}</p>
             <ul className="namecard-container">
                 {task.owners.map((owner) => (

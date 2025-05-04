@@ -43,7 +43,7 @@ export default function TeamPage() {
     };
     return (
         <Layout>
-            <div className="container py-5 px-3">
+            <div className="container py-5 px-4">
                 {showTeamForm && <TeamForm setShowTeamForm={setShowTeamForm} />}
                 <div className="d-flex">
                     <h3 className="fs-3">Teams</h3>
@@ -57,7 +57,7 @@ export default function TeamPage() {
                 <div className="row mt-4">
                     <div className="col-md-4 mb-4">
                         <div className="card bg-light">
-                            <NavLink className="text-decoration-none">
+                            <NavLink className="text-decoration-none" to={"/teamdetails"}>
                                 <div className="card-body">
                                     <h5 className="card-title">
                                         Designing Team <span>&rarr;</span>
@@ -80,7 +80,7 @@ export default function TeamPage() {
                     </div>
                     <div className="col-md-4 mb-4">
                         <div className="card bg-light">
-                            <NavLink className="text-decoration-none">
+                            <NavLink className="text-decoration-none" to={"/teamdetails"}>
                                 <div className="card-body">
                                     <h5 className="card-title">
                                         Designing Team <span>&rarr;</span>
