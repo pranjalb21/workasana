@@ -44,7 +44,10 @@ export const DataProvider = ({ children }) => {
             if (data && data.data) {
                 setUser(data.data);
                 setIsAuthenticated(true);
-                navigate(window.location());
+
+                const redirectUrl = localStorage.getItem("redirectUrl") || "/";
+
+                navigate(redirectUrl, { replace: true });
                 return true;
             } else {
                 toast.error("Unexpected response format.");
