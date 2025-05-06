@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { SiNginxproxymanager } from "react-icons/si";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { base_url } from "../constants/constants";
+import { toast } from "react-toastify";
+import { useData } from "../contexts/application.context";
 
 export default function SignupForm() {
+    const navigate = useNavigate();
+    const { signup } = useData();
     const defaultData = {
         email: "",
         password: "",
@@ -19,20 +24,20 @@ export default function SignupForm() {
         if (!formData.email || !emailRegex.test(formData.email)) {
             inputError.email = "Please enter a valid email address.";
         }
-        if (!formData.password || !formData.password.length >= 5) {
+        if (!formData.password || formData.password.length < 5) {
             inputError.password = "Password should be atleast 5 characters.";
         }
-        if (!formData.name || !formData.name.length >= 1) {
+        if (!formData.name || formData.name.length < 1) {
             inputError.name = "Name is required.";
         }
         setErrors(inputError);
         return Object.keys(inputError).length;
     };
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setErrors({});
         if (!validateInput()) {
-            console.log(formData);
+            await signup(formData);
         }
     };
 
@@ -51,7 +56,7 @@ export default function SignupForm() {
                     <p className="text-center ">
                         <small>Please enter your details</small>
                     </p>
-                    <div className="mb-3">
+                    <div className="mb-2">
                         <label htmlFor="name" className="form-label">
                             Name
                         </label>
@@ -69,12 +74,12 @@ export default function SignupForm() {
                             }
                         />
                         {errors.name && (
-                            <p className="text-danger">
+                            <p className="text-danger m-0">
                                 * <small>{errors.name}</small>
                             </p>
                         )}
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-2">
                         <label htmlFor="email" className="form-label">
                             Email
                         </label>
@@ -92,12 +97,12 @@ export default function SignupForm() {
                             }
                         />
                         {errors.email && (
-                            <p className="text-danger">
+                            <p className="text-danger m-0">
                                 * <small>{errors.email}</small>
                             </p>
                         )}
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-2">
                         <label htmlFor="password" className="form-label">
                             Password
                         </label>
@@ -134,7 +139,7 @@ export default function SignupForm() {
                             </span>
                         </div>
                         {errors.password && (
-                            <p className="text-danger">
+                            <p className="text-danger m-0">
                                 * <small>{errors.password}</small>
                             </p>
                         )}

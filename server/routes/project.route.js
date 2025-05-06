@@ -5,6 +5,6 @@ import { createProject, getProjects } from "../apis/project.api.js";
 const router = express.Router();
 
 router
-    .post("/add", verifyJwt, createProject)
+    .post("/", verifyJwt, createProject)
     .get("/", verifyJwt, getProjects);
 export default router;

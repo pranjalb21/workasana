@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import useFetch from "../hooks/useFetch";
 import { base_url } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
+import { getHeader } from "../auth/addHeader";
 
 export const DataContext = createContext();
 
@@ -11,6 +12,7 @@ export const DataProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [projects, setProjects] = useState([]);
 
     const loadUser = async () => {
         setLoading(true);
@@ -113,13 +115,82 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const signup = async (userData) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${base_url}/auth/signup`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                localStorage.setItem("authToken", data.token);
+                toast.success(data.message);
+                toast.info("Logged in successfully.");
+                setUser(data.data);
+                setIsAuthenticated(true);
+                navigate("/", { replace: true });
+            }
+        } catch (error) {
+            console.log("Signup error", error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const addProject = async (projectData) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${base_url}/projects`, {
+                method: "POST",
+                headers: getHeader(),
+                body: JSON.stringify(projectData),
+            });
+            const data = await response.json();
+            console.log(data);
+
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                setProjects((prev) => [...prev, data.data]);
+                toast.success(data.message);
+                return true;
+            }
+        } catch (error) {
+            console.log("Signup error", error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         loadUser();
     }, []);
 
     return (
         <DataContext.Provider
-            value={{ user, loading, isAuthenticated, login, logout }}
+            value={{
+                user,
+                loading,
+                isAuthenticated,
+                login,
+                logout,
+                signup,
+                addProject,
+            }}
         >
             {children}
         </DataContext.Provider>

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { base_url } from "../constants/constants";
+import { getHeader } from "../auth/addHeader";
+import { useData } from "../contexts/application.context";
 
 export default function ProjectForm({ setShowProject }) {
+    const { addProject } = useData();
     const defaultData = {
         description: "",
         name: "",
@@ -10,7 +14,7 @@ export default function ProjectForm({ setShowProject }) {
 
     const validateInput = () => {
         const inputError = {};
-        if (!formData.description || !formData.description.length >= 1) {
+        if (!formData.description || formData.description.length < 1) {
             inputError.description = "Please provide project description.";
         }
         if (!formData.name || !formData.name.length >= 5) {
@@ -19,11 +23,14 @@ export default function ProjectForm({ setShowProject }) {
         setErrors(inputError);
         return Object.keys(inputError).length;
     };
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setErrors({});
         if (!validateInput()) {
-            console.log(formData);
+            const result = await addProject(formData);
+            if (result) {
+                setShowProject(false);
+            }
         }
     };
 
@@ -78,6 +85,13 @@ export default function ProjectForm({ setShowProject }) {
                             <textarea
                                 className="form-control"
                                 placeholder="Enter project description"
+                                name="description"
+                                onChange={(e) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        [e.target.name]: e.target.value,
+                                    }))
+                                }
                             />
                             {errors.description && (
                                 <p className="text-danger">

@@ -7,5 +7,7 @@ const projectSchema = z.object({
     description: z
         .string({ required_error: "Project description is required." })
         .nonempty("Project description cannot be empty."),
+    status: z.enum(["In Progress", "Completed"]),
+    owner: z.string({ required_error: "Project owner is required." }),
 });
 export default projectSchema;
