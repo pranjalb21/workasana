@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { SiNginxproxymanager } from "react-icons/si";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useData } from "../contexts/application.context";
 
 export default function LoginForm() {
+    const navigate = useNavigate();
+    const { login } = useData();
     const defaultData = {
         email: "",
         password: "",
@@ -18,17 +21,21 @@ export default function LoginForm() {
         if (!formData.email || !emailRegex.test(formData.email)) {
             inputError.email = "Please enter a valid email address.";
         }
-        if (!formData.password || !formData.password.length >= 5) {
+        if (!formData.password || formData.password.length < 5) {
             inputError.password = "Password should be atleast 5 characters.";
         }
+
         setErrors(inputError);
         return Object.keys(inputError).length;
     };
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setErrors({});
         if (!validateInput()) {
-            console.log(formData);
+            const status = await login(formData);
+            if (status) {
+                navigate("/");
+            }
         }
     };
 

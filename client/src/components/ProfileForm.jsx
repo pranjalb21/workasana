@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useData } from "../contexts/application.context";
 const profileDetails = {
     id: 1,
     name: "John Doe",
@@ -7,7 +8,8 @@ const profileDetails = {
     password: "abcde",
 };
 export default function ProfileForm() {
-    const [profile, setProfile] = useState(profileDetails);
+    const {user}=useData()
+    const [profile, setProfile] = useState(user);
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const validateForm = () => {

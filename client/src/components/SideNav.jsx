@@ -4,19 +4,24 @@ import { GoProject } from "react-icons/go";
 import { AiOutlineTeam } from "react-icons/ai";
 import { TbReportAnalytics } from "react-icons/tb";
 import { IoSettingsSharp, IoCreateOutline } from "react-icons/io5";
+import { TbLogout2 } from "react-icons/tb";
 import { Link, NavLink } from "react-router-dom";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import Logo from "./Logo";
+import { useData } from "../contexts/application.context";
 const dashBoardLinks = [
     { title: "Dashboard", link: "/", icon: <MdOutlineSpaceDashboard /> },
     { title: "Project", link: "/project", icon: <GoProject /> },
     { title: "Team", link: "/team", icon: <AiOutlineTeam /> },
     { title: "Reports", link: "/reports", icon: <TbReportAnalytics /> },
     { title: "Setting", link: "/settings", icon: <IoSettingsSharp /> },
-    { title: "LogIn", link: "/login", icon: <MdLogin /> },
-    { title: "SignUp", link: "/signup", icon: <IoCreateOutline /> },
+    { title: "LogOut", link: "/logout", icon: <TbLogout2 /> },
+
+    // { title: "LogIn", link: "/login", icon: <MdLogin /> },
+    // { title: "SignUp", link: "/signup", icon: <IoCreateOutline /> },
 ];
 export default function SideNav() {
+    const { logout } = useData();
     return (
         <div className="sideNav">
             <Logo />
@@ -39,6 +44,7 @@ export default function SideNav() {
                                     ? "active"
                                     : ""}`}
                             to={item.link}
+                            onClick={() => item.title === "LogOut" && logout()}
                         >
                             <p className="m-0 p-0 d-flex me-1 fs-4">
                                 {item.icon}
