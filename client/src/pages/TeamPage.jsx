@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import TeamForm from "../components/TeamForm";
 import { NavLink } from "react-router-dom";
 import { useData } from "../contexts/application.context";
+import { generateNameKeyword, loadColors } from "../constants/constants";
 
 const task = [
     { id: 11, name: "John Doe" },
@@ -11,43 +12,13 @@ const task = [
 export default function TeamPage() {
     const [showTeamForm, setShowTeamForm] = useState(false);
     const { teams, loadTeams } = useData();
-    function getRandomColor() {
-        return "#" + Math.floor(Math.random() * 16777215).toString(16); // Random hex color
-    }
 
-    function getTextColor(bgColor) {
-        // Convert hex to RGB
-        let r = parseInt(bgColor.substring(1, 3), 16);
-        let g = parseInt(bgColor.substring(3, 5), 16);
-        let b = parseInt(bgColor.substring(5, 7), 16);
-
-        // Calculate luminance
-        let luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-        // Choose black or white based on luminance
-        return luminance > 0.5 ? "#000000" : "#FFFFFF";
-    }
-
-    const loadColors = () => {
-        document.querySelectorAll(".namecard").forEach((pill) => {
-            let bgColor = getRandomColor();
-            pill.style.backgroundColor = bgColor;
-            pill.style.color = getTextColor(bgColor); // Ensures contrast
-        });
-    };
     useEffect(() => {
         loadTeams();
     }, []);
     useEffect(() => {
         loadColors();
     }, [teams]);
-    const generateNameKeyword = (name) => {
-        const nameArray = name?.split(" ");
-        let nameKeyword =
-            nameArray[0][0].toUpperCase() +
-            nameArray[nameArray.length - 1][0].toUpperCase();
-        return nameKeyword;
-    };
     return (
         <Layout>
             <div className="container py-5 px-4">
@@ -75,18 +46,63 @@ export default function TeamPage() {
                                                 {team.name}
                                                 <span>&rarr;</span>
                                             </h5>
-                                            <ul className="namecard-container">
+                                            <ul
+                                                className="name-container"
+                                                style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                }}
+                                            >
                                                 {team?.members?.map(
-                                                    (member) => (
-                                                        <li
-                                                            className="namecard"
-                                                            key={member?._id}
-                                                        >
-                                                            {generateNameKeyword(
-                                                                member?.name
-                                                            )}
-                                                        </li>
-                                                    )
+                                                    (member, index) =>
+                                                        index < 2 && (
+                                                            <li
+                                                                key={
+                                                                    member?._id
+                                                                }
+                                                                style={{
+                                                                    display:
+                                                                        "inline-block",
+                                                                    ...(index >
+                                                                        -1 && {
+                                                                        marginLeft:
+                                                                            "-5px",
+                                                                    }),
+                                                                    height: "25px",
+                                                                    width: "25px",
+                                                                    borderRadius:
+                                                                        "50%",
+                                                                    textAlign:
+                                                                        "center",
+                                                                }}
+                                                                className="namepill"
+                                                            >
+                                                                {generateNameKeyword(
+                                                                    member?.name
+                                                                )}
+                                                            </li>
+                                                        )
+                                                )}
+                                                {team?.members?.length > 2 && (
+                                                    <li
+                                                        style={{
+                                                            display:
+                                                                "inline-block",
+
+                                                            marginLeft: "-5px",
+
+                                                            height: "25px",
+                                                            width: "25px",
+                                                            borderRadius: "50%",
+                                                            textAlign: "center",
+                                                            fontSize: "0.9rem",
+                                                        }}
+                                                        className="namepill"
+                                                    >
+                                                        +
+                                                        {team.members.length -
+                                                            2}
+                                                    </li>
                                                 )}
                                             </ul>
                                         </div>

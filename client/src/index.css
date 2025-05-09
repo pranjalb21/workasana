@@ -245,7 +245,7 @@ main {
     background-color: #f1f1f1;
 }
 
-.pcard .heading:hover .go {
+.pcard:hover .go {
     transform: translateX(5px);
     transition: ease-in-out 0.3s;
     color: rgb(224, 59, 18);

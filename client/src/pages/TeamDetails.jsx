@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import {
-    NavLink,
-    useSearchParams,
-} from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import TeamMemberForm from "../components/TeamMemberForm";
 import { useData } from "../contexts/application.context";
+import { generateNameKeyword, loadColors } from "../constants/constants";
 
 export default function TeamDetails() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -14,30 +12,7 @@ export default function TeamDetails() {
     const { getTeamByName } = useData();
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [showTeamMemberForm, setShowTeamMemberForm] = useState(false);
-    function getRandomColor() {
-        return "#" + Math.floor(Math.random() * 16777215).toString(16); // Random hex color
-    }
 
-    function getTextColor(bgColor) {
-        // Convert hex to RGB
-        let r = parseInt(bgColor.substring(1, 3), 16);
-        let g = parseInt(bgColor.substring(3, 5), 16);
-        let b = parseInt(bgColor.substring(5, 7), 16);
-
-        // Calculate luminance
-        let luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-        // Choose black or white based on luminance
-        return luminance > 0.5 ? "#000000" : "#FFFFFF";
-    }
-
-    const loadColors = () => {
-        document.querySelectorAll(".namepill").forEach((pill) => {
-            let bgColor = getRandomColor();
-            pill.style.backgroundColor = bgColor;
-            pill.style.color = getTextColor(bgColor); // Ensures contrast
-        });
-    };
     const loadTeam = async () => {
         // console.log(teamName);
 
@@ -54,11 +29,7 @@ export default function TeamDetails() {
     useEffect(() => {
         loadColors();
     }, [selectedTeam]);
-    const generateNameKeyword = (name) => {
-        const nameArray = name.split(" ");
-        let nameKeyword = nameArray[0][0] + nameArray[nameArray.length - 1][0];
-        return nameKeyword;
-    };
+
     return (
         <Layout>
             {showTeamMemberForm && (

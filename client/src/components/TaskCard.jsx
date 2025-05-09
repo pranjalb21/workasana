@@ -1,12 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { generateNameKeyword } from "../constants/constants";
 
 export default function TaskCard({ task }) {
-    const generateNameKeyword = (name) => {
-        const nameArray = name.split(" ");
-        let nameKeyword = nameArray[0][0] + nameArray[nameArray.length - 1][0];
-        return nameKeyword;
-    };
     return (
         <div className="bg-light tcard">
             <span
