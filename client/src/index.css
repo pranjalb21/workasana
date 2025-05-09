@@ -331,3 +331,14 @@ main {
     margin: -2px 2px 0 -2px;
     transition: 0.2s ease-in-out;
 }
+.deleteTeamMemberBtn{
+    cursor: pointer;
+    margin-top: -5px;
+    transition: 0.2s ease-in-out;
+    font-size: 1.3rem;
+}
+.deleteTeamMemberBtn:hover{
+    color: red;
+    font-size: 1.5rem;
+    margin: -5px 0 0 -2px;
+}

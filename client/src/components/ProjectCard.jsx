@@ -18,7 +18,7 @@ export default function ProjectCard({ project }) {
                     {project.status}
                 </span>
                 <h6 className="fs-6 fw-bold mt-2 heading">
-                    <Link className="text-decoration-none">{project.name}</Link>
+                    <p className="d-inline-block">{project.name}</p>
                     <span className="go ms-1">&rarr;</span>
                 </h6>
                 <p className="description">{project.description}</p>

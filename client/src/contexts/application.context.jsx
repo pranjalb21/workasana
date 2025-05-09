@@ -10,6 +10,7 @@ export const DataContext = createContext();
 export const DataProvider = ({ children }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+    const [users, setUsers] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [projects, setProjects] = useState([]);
@@ -60,6 +61,25 @@ export const DataProvider = ({ children }) => {
             console.error("Load user error", error);
             toast.error("Error loading user.");
             return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadUsers = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${base_url}/auth`, {
+                headers: getHeader(),
+            });
+            if (!response.ok) {
+                toast.error("Something went wrong.");
+            }
+            const data = await response.json();
+            setUsers(data.data);
+        } catch (error) {
+            console.log("Error while loading users", error);
+            toast.error("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -280,6 +300,37 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const updateTeam = async (teamName, teamData) => {
+        setLoading(true);
+        try {
+            const response = await fetch(
+                `${base_url}/teams?teamName=${teamName}`,
+                {
+                    headers: getHeader(),
+                    method: "PUT",
+                    body: JSON.stringify(teamData),
+                }
+            );
+            const data = await response.json()
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+                return false;
+            } else {
+                toast.success("Team updated successfully.")
+                return data.data;
+            }
+        } catch (error) {
+            console.log("Error occured while adding team.", error);
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         loadUser();
     }, []);
@@ -301,6 +352,9 @@ export const DataProvider = ({ children }) => {
                 addTeam,
                 loadTeams,
                 getTeamByName,
+                users,
+                loadUsers,
+                updateTeam
             }}
         >
             {children}

@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
 import Team from "../models/team.model.js";
 import generateError from "../utils/generateError.js";
 import teamSchema from "../utils/validators/team.validator.js";
+import User from "../models/user.model.js";
 
 export const createTeam = async (req, res) => {
     try {
@@ -63,6 +65,39 @@ export const getTeamByName = async (req, res) => {
                 error: "Team not found.",
             });
         }
+    } catch (error) {
+        // Return error response
+        return res.status(500).json({
+            error: "Error occured while fetching teams.",
+            message: error.message,
+        });
+    }
+};
+
+export const updateTeam = async (req, res) => {
+    try {
+        const { teamName } = req.query;
+        const parsedData = teamSchema.parse(req.body);
+        // console.log(parsedData);
+
+        parsedData.members.map(async (member) => {
+            const isExistingUser = await User.findById(member);
+            // console.log(isExistingUser);
+            if (!isExistingUser) {
+                return res.status(404).json({ error: "User not found." });
+            }
+        });
+        const updatedTeams = await Team.findOneAndUpdate(
+            { name: teamName },
+            parsedData,
+            { new: true }
+        );
+        // console.log(updatedTeams);
+
+        await updatedTeams.populate("members");
+        return res
+            .status(201)
+            .json({ message: "Team members updated.", data: updatedTeams });
     } catch (error) {
         // Return error response
         return res.status(500).json({

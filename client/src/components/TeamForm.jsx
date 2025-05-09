@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useData } from "../contexts/application.context";
-import { base_url } from "../constants/constants";
-import { toast } from "react-toastify";
-import { getHeader } from "../auth/addHeader";
 
 export default function TeamForm({ setShowTeamForm }) {
-    const { setLoading, addTeam } = useData();
+    const { addTeam, users, loadUsers } = useData();
     const defaultData = {
         description: "",
         name: "",
@@ -14,27 +11,6 @@ export default function TeamForm({ setShowTeamForm }) {
     const [formData, setFormData] = useState(defaultData);
     const [errors, setErrors] = useState({});
     const [selectedMembers, setSelectedMembers] = useState([""]);
-
-    const [users, setUsers] = useState([]);
-
-    const loadUsers = async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${base_url}/auth`, {
-                headers: getHeader(),
-            });
-            if (!response.ok) {
-                toast.error("Something went wrong.");
-            }
-            const data = await response.json();
-            setUsers(data.data);
-        } catch (error) {
-            console.log("Signup error", error);
-            toast.error("Something went wrong. Please try again.");
-        } finally {
-            setLoading(false);
-        }
-    };
 
     useEffect(() => {
         loadUsers();
@@ -67,7 +43,7 @@ export default function TeamForm({ setShowTeamForm }) {
 
     // Called when "+ Add more" button is clicked.
     const addMoreMember = () => {
-        if (selectedMembers.length < users.length) {
+        if (selectedMembers.length < users?.length) {
             setSelectedMembers([...selectedMembers, ""]);
         }
     };
@@ -89,7 +65,7 @@ export default function TeamForm({ setShowTeamForm }) {
         const selectedExceptCurrent = selectedMembers.filter(
             (_, i) => i !== selectIndex && selectedMembers[i] !== ""
         );
-        return users.filter(
+        return users?.filter(
             (user) =>
                 // Include if the user is not selected in another select,
                 // or if it is the currently selected option in the current select.
@@ -198,14 +174,16 @@ export default function TeamForm({ setShowTeamForm }) {
                                         <option value="" disabled>
                                             Select Team Member
                                         </option>
-                                        {getFilteredUsers(index).map((user) => (
-                                            <option
-                                                key={user._id}
-                                                value={user._id}
-                                            >
-                                                {user.name}
-                                            </option>
-                                        ))}
+                                        {getFilteredUsers(index)?.map(
+                                            (user) => (
+                                                <option
+                                                    key={user._id}
+                                                    value={user._id}
+                                                >
+                                                    {user.name}
+                                                </option>
+                                            )
+                                        )}
                                     </select>
                                     {/* Optionally show error for the first select or conditionally for all */}
                                     {errors.members && index === 0 && (

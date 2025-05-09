@@ -4,12 +4,13 @@ import { NavLink, useSearchParams } from "react-router-dom";
 import TeamMemberForm from "../components/TeamMemberForm";
 import { useData } from "../contexts/application.context";
 import { generateNameKeyword, loadColors } from "../constants/constants";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function TeamDetails() {
     const [searchParams, setSearchParams] = useSearchParams();
     const teamName = searchParams.get("teamName");
 
-    const { getTeamByName } = useData();
+    const { getTeamByName, updateTeam } = useData();
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [showTeamMemberForm, setShowTeamMemberForm] = useState(false);
 
@@ -23,6 +24,17 @@ export default function TeamDetails() {
             }
         }
     };
+    const handleMemberDelete = async (memberId) => {
+        const filteredMembers = selectedTeam.members
+            .filter((member) => member._id !== memberId)
+            .map((person) => person._id);
+        // console.log(filteredMembers);
+        const data = { ...selectedTeam, members: filteredMembers };
+        const updatedTeam = await updateTeam(selectedTeam.name, data);
+        if (updatedTeam) {
+            setSelectedTeam(updatedTeam);
+        }
+    };
     useEffect(() => {
         loadTeam();
     }, []);
@@ -33,7 +45,11 @@ export default function TeamDetails() {
     return (
         <Layout>
             {showTeamMemberForm && (
-                <TeamMemberForm setShowTeamMemberForm={setShowTeamMemberForm} />
+                <TeamMemberForm
+                    setShowTeamMemberForm={setShowTeamMemberForm}
+                    selectedTeam={selectedTeam}
+                    setSelectedTeam={setSelectedTeam}
+                />
             )}
             <section className="container my-4 mx-5">
                 <p className="back">
@@ -59,7 +75,15 @@ export default function TeamDetails() {
                                     <span className="namepill me-2">
                                         {generateNameKeyword(member.name)}
                                     </span>
-                                    {member.name}
+                                    {member.name}&nbsp;&nbsp;
+                                    <span className="">
+                                        <RiDeleteBin6Line
+                                            className="deleteTeamMemberBtn"
+                                            onClick={() =>
+                                                handleMemberDelete(member._id)
+                                            }
+                                        />
+                                    </span>
                                 </li>
                             ))}
                         </ul>

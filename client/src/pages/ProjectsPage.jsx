@@ -37,7 +37,7 @@ const tasks = [
         dueOn: "20 Dec, 2024",
     },
 ];
-export default function ProjectPage() {
+export default function ProjectsPage() {
     const [showProjectTask, setShowProjectTask] = useState(false);
     const handleSelect = () => {
         const tags = document.querySelectorAll(".tags");
