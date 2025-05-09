@@ -10,6 +10,13 @@ const teamSchema = new mongoose.Schema(
         description: {
             type: String,
         }, // Optional description for the team
+        members: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+                required: true,
+            }, // Refers to User model (owners)
+        ],
     },
     {
         timestamps: true,

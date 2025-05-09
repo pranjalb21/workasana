@@ -107,3 +107,18 @@ export const getUserByToken = async (req, res) => {
         });
     }
 };
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        return res
+            .status(200)
+            .json({ message: "Users fetched successfully.", data: users });
+    } catch (err) {
+        // Return error response
+        return res.status(500).json({
+            error: "Error occured while login.",
+            details: err.message,
+        });
+    }
+};

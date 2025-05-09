@@ -7,5 +7,13 @@ const teamSchema = z.object({
     description: z
         .string({ required_error: "Project description is required." })
         .nonempty("Project description cannot be empty."),
+    members: z.array(
+        z
+            .string({ required_error: "User is required." })
+            .regex(/^[0-9a-fA-F]{24}$/, {
+                message: "Invalid User",
+            })
+            .min(1, { message: "Atleast 1 user is required." })
+    ),
 });
 export default teamSchema;

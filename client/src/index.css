@@ -320,3 +320,14 @@ main {
     justify-content: center;
     align-items: center;
 }
+
+.backArrow{
+    font-size: 0.9rem;
+}
+.backArrow:hover{
+    font-size: 1rem !important;
+}
+.backArrow:hover span{
+    margin: -2px 2px 0 -2px;
+    transition: 0.2s ease-in-out;
+}

@@ -28,6 +28,22 @@ export const createProject = async (req, res) => {
     }
 };
 
+export const getOwnProjects = async (req, res) => {
+    try {
+        const teams = await Project.find({ owner: req.user._id });
+        res.status(200).json({
+            message: "Projects fetched successfully.",
+            data: teams,
+        });
+    } catch (error) {
+        // Return error response
+        return res.status(500).json({
+            error: "Error occured while fetching projects.",
+            message: error.message,
+        });
+    }
+};
+
 export const getProjects = async (req, res) => {
     try {
         const teams = await Project.find();

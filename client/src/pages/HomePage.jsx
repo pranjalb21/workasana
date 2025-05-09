@@ -5,6 +5,8 @@ import TaskCard from "../components/TaskCard";
 import { CiSearch } from "react-icons/ci";
 import ProjectForm from "../components/ProjectForm";
 import TaskForm from "../components/TaskForm";
+import { useData } from "../contexts/application.context";
+import ProjectContainer from "../components/ProjectContainer";
 
 const projectDetailsList = [
     {
@@ -115,7 +117,7 @@ export default function HomePage() {
                 <section>
                     <div className="d-flex">
                         <h4 className="d-inline-block fs-4 fw-bold m-0 align-self-center">
-                            Projects
+                            My Projects
                         </h4>
                         <select
                             name="projectFilter"
@@ -134,11 +136,7 @@ export default function HomePage() {
                             + New Project
                         </button>
                     </div>
-                    <div className="d-flex flex-wrap gap-3 mt-3">
-                        {projectDetailsList.map((project) => (
-                            <ProjectCard project={project} key={project.id} />
-                        ))}
-                    </div>
+                    <ProjectContainer />
                 </section>
                 <section className="mt-5">
                     <div className="d-flex ">

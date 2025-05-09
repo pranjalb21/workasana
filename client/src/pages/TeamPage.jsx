@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import TeamForm from "../components/TeamForm";
 import { NavLink } from "react-router-dom";
+import { useData } from "../contexts/application.context";
 
 const task = [
     { id: 11, name: "John Doe" },
@@ -9,6 +10,7 @@ const task = [
 ];
 export default function TeamPage() {
     const [showTeamForm, setShowTeamForm] = useState(false);
+    const { teams, loadTeams } = useData();
     function getRandomColor() {
         return "#" + Math.floor(Math.random() * 16777215).toString(16); // Random hex color
     }
@@ -34,11 +36,16 @@ export default function TeamPage() {
         });
     };
     useEffect(() => {
-        loadColors();
+        loadTeams();
     }, []);
+    useEffect(() => {
+        loadColors();
+    }, [teams]);
     const generateNameKeyword = (name) => {
-        const nameArray = name.split(" ");
-        let nameKeyword = nameArray[0][0] + nameArray[nameArray.length - 1][0];
+        const nameArray = name?.split(" ");
+        let nameKeyword =
+            nameArray[0][0].toUpperCase() +
+            nameArray[nameArray.length - 1][0].toUpperCase();
         return nameKeyword;
     };
     return (
@@ -55,68 +62,38 @@ export default function TeamPage() {
                     </button>
                 </div>{" "}
                 <div className="row mt-4">
-                    <div className="col-md-4 mb-4">
-                        <div className="card bg-light">
-                            <NavLink className="text-decoration-none" to={"/teamdetails"}>
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        Designing Team <span>&rarr;</span>
-                                    </h5>
-                                    <ul className="namecard-container">
-                                        {task.map((owner) => (
-                                            <li
-                                                className="namecard"
-                                                key={owner.id}
-                                            >
-                                                {generateNameKeyword(
-                                                    owner.name
+                    {teams &&
+                        teams?.map((team) => (
+                            <div className="col-md-4 mb-4" key={team._id}>
+                                <div className="card bg-light">
+                                    <NavLink
+                                        className="text-decoration-none"
+                                        to={`/teamdetails?teamName=${team.name}`}
+                                    >
+                                        <div className="card-body">
+                                            <h5 className="card-title">
+                                                {team.name}
+                                                <span>&rarr;</span>
+                                            </h5>
+                                            <ul className="namecard-container">
+                                                {team?.members?.map(
+                                                    (member) => (
+                                                        <li
+                                                            className="namecard"
+                                                            key={member?._id}
+                                                        >
+                                                            {generateNameKeyword(
+                                                                member?.name
+                                                            )}
+                                                        </li>
+                                                    )
                                                 )}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                            </ul>
+                                        </div>
+                                    </NavLink>
                                 </div>
-                            </NavLink>
-                        </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                        <div className="card bg-light">
-                            <NavLink className="text-decoration-none" to={"/teamdetails"}>
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        Designing Team <span>&rarr;</span>
-                                    </h5>
-                                    <ul className="namecard-container">
-                                        {task.map((owner) => (
-                                            <li
-                                                className="namecard"
-                                                key={owner.id}
-                                            >
-                                                {generateNameKeyword(
-                                                    owner.name
-                                                )}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </NavLink>
-                        </div>
-                    </div>
-                    <div className="col-md-4 mb-4">
-                        <div className="card bg-light">
-                            <div className="card-body">
-                                <h5 className="card-title">
-                                    Designing Team <span>&rarr;</span>
-                                </h5>
-                                <ul className="namecard-container">
-                                    {task.map((owner) => (
-                                        <li className="namecard" key={owner.id}>
-                                            {generateNameKeyword(owner.name)}
-                                        </li>
-                                    ))}
-                                </ul>
                             </div>
-                        </div>
-                    </div>
+                        ))}
                 </div>
             </div>
         </Layout>
