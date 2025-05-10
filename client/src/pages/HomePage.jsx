@@ -8,68 +8,13 @@ import TaskForm from "../components/TaskForm";
 import { useData } from "../contexts/application.context";
 import ProjectContainer from "../components/ProjectContainer";
 import { loadColors } from "../constants/constants";
+import TaskContainer from "../components/TaskContainer";
 
-const projectDetailsList = [
-    {
-        id: 1,
-        status: "In Progress",
-        name: "Create Moodboard",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod sagittis lectus, eget gravida purus commodo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Curabitur tincidunt lorem ac justo tristique, vitae semper elit mollis. Integer non fringilla urna, sed interdum nulla. Nam tempus felis a eros suscipit, laoreet.",
-    },
-    {
-        id: 2,
-        status: "Completed",
-        name: "Create Moodboard",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod sagittis lectus, eget gravida purus commodo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Curabitur tincidunt lorem ac justo tristique, vitae semper elit mollis. Integer non fringilla urna, sed interdum nulla. Nam tempus felis a eros suscipit, laoreet.",
-    },
-    {
-        id: 3,
-        status: "Completed",
-        name: "Create Moodboard",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod sagittis lectus, eget gravida purus commodo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Curabitur tincidunt lorem ac justo tristique, vitae semper elit mollis. Integer non fringilla urna, sed interdum nulla. Nam tempus felis a eros suscipit, laoreet.",
-    },
-];
-const taskList = [
-    {
-        id: 1,
-        status: "In Progress",
-        name: "Create filter feature",
-        timeToClose: "20th Dec 2024",
-        owners: [
-            { id: 11, name: "John Doe" },
-            { id: 12, name: "Smith John" },
-        ],
-    },
-    {
-        id: 2,
-        status: "Completed",
-        name: "Create filter feature",
-        timeToClose: "20th Dec 2024",
-        owners: [
-            { id: 13, name: "John Doe" },
-            { id: 14, name: "Smith John" },
-        ],
-    },
-    {
-        id: 3,
-        status: "In Progress",
-        name: "Create filter feature",
-        timeToClose: "20th Dec 2024",
-        owners: [
-            { id: 15, name: "John Doe" },
-            { id: 16, name: "Smith John" },
-        ],
-    },
-];
 
 export default function HomePage() {
     const [showProject, setShowProject] = useState(false);
     const [showTask, setShowTask] = useState(false);
 
-    
     useEffect(() => {
         loadColors();
     }, []);
@@ -114,9 +59,9 @@ export default function HomePage() {
                             + New Project
                         </button>
                     </div>
-                    <ProjectContainer />
+                    <ProjectContainer type={"self"} />
                 </section>
-                <section className="mt-5">
+                <section className="mt-5 mb-4">
                     <div className="d-flex ">
                         <h4 className="d-inline-block fs-4 fw-bold m-0 align-self-center">
                             My Tasks
@@ -138,11 +83,7 @@ export default function HomePage() {
                             + New Task
                         </button>
                     </div>
-                    <div className="d-flex flex-wrap gap-3 mt-3">
-                        {taskList.map((task) => (
-                            <TaskCard task={task} key={task.id} />
-                        ))}
-                    </div>
+                    <TaskContainer type={"self"} />
                 </section>
             </div>
         </Layout>

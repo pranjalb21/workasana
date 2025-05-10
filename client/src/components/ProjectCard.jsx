@@ -5,7 +5,7 @@ export default function ProjectCard({ project }) {
     return (
         <NavLink
             className="text-decoration-none"
-            to={`/project-details?project_id=${project._id}`}
+            to={`/project-details?projectID=${project._id}`}
         >
             <div className="bg-light pcard">
                 <span

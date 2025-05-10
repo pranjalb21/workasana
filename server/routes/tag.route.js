@@ -5,7 +5,7 @@ import verifyJwt from "../middlewares/verifyJwt.js";
 const router = express.Router();
 
 router
-    .post("/add",verifyJwt, createTag)
+    .post("/",verifyJwt, createTag)
     .get("/",verifyJwt, getTags);
 
 export default router;

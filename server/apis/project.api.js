@@ -38,7 +38,7 @@ export const getOwnProjects = async (req, res) => {
     } catch (error) {
         // Return error response
         return res.status(500).json({
-            error: "Error occured while fetching projects.",
+            error: "Error occured while fetching own projects.",
             message: error.message,
         });
     }
@@ -55,6 +55,23 @@ export const getProjects = async (req, res) => {
         // Return error response
         return res.status(500).json({
             error: "Error occured while fetching projects.",
+            message: error.message,
+        });
+    }
+};
+
+export const getProjectById = async (req, res) => {
+    try {
+        const { projectId } = req.params;
+        const teams = await Project.findById(projectId);
+        res.status(200).json({
+            message: "Project fetched successfully.",
+            data: teams,
+        });
+    } catch (error) {
+        // Return error response
+        return res.status(500).json({
+            error: "Error occured while fetching project.",
             message: error.message,
         });
     }

@@ -11,7 +11,7 @@ import Logo from "./Logo";
 import { useData } from "../contexts/application.context";
 const dashBoardLinks = [
     { title: "Dashboard", link: "/", icon: <MdOutlineSpaceDashboard /> },
-    { title: "Project", link: "/project", icon: <GoProject /> },
+    { title: "Projects", link: "/projects", icon: <GoProject /> },
     { title: "Team", link: "/team", icon: <AiOutlineTeam /> },
     { title: "Reports", link: "/reports", icon: <TbReportAnalytics /> },
     { title: "Setting", link: "/settings", icon: <IoSettingsSharp /> },

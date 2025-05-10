@@ -11,9 +11,11 @@ export const DataProvider = ({ children }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
+    const [projects, setProjects] = useState(null);
+    const [tasks, setTasks] = useState(null);
+    const [tags, setTags] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [projects, setProjects] = useState([]);
     const [teams, setTeams] = useState([]);
 
     const loadUser = async () => {
@@ -215,6 +217,33 @@ export const DataProvider = ({ children }) => {
                 // return true;
             }
         } catch (error) {
+            console.log("Error occured while loading projects.", error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+    const loadProject = async (projectId) => {
+        setLoading(true);
+        try {
+            const response = await fetch(
+                `${base_url}/projects/project-id/${projectId}`,
+                {
+                    headers: getHeader(),
+                }
+            );
+            const data = await response.json();
+
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+                return false;
+            } else {
+                return data.data;
+            }
+        } catch (error) {
             console.log("Error occured while loading project.", error);
             toast.error("Something went wrong. Please try again.");
         } finally {
@@ -265,7 +294,7 @@ export const DataProvider = ({ children }) => {
                 setTeams(data.data);
             }
         } catch (error) {
-            console.log("Error occured while adding team.", error);
+            console.log("Error occured while loading team.", error);
             toast.error("Something went wrong. Please try again.");
         } finally {
             setLoading(false);
@@ -292,7 +321,7 @@ export const DataProvider = ({ children }) => {
                 return data.data;
             }
         } catch (error) {
-            console.log("Error occured while adding team.", error);
+            console.log("Error occured while fetching team.", error);
             toast.error("Something went wrong. Please try again.");
             return false;
         } finally {
@@ -311,7 +340,7 @@ export const DataProvider = ({ children }) => {
                     body: JSON.stringify(teamData),
                 }
             );
-            const data = await response.json()
+            const data = await response.json();
             if (!response.ok) {
                 toast.error(data.error);
                 if (data.errors) {
@@ -319,11 +348,113 @@ export const DataProvider = ({ children }) => {
                 }
                 return false;
             } else {
-                toast.success("Team updated successfully.")
+                toast.success("Team updated successfully.");
                 return data.data;
             }
         } catch (error) {
             console.log("Error occured while adding team.", error);
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadTags = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${base_url}/tags`, {
+                headers: getHeader(),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                setTags(data.data);
+            }
+        } catch (error) {
+            console.log("Error occured while fetching tags.", error);
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const addTag = async (tagData) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${base_url}/tags`, {
+                headers: getHeader(),
+                method: "POST",
+                body: JSON.stringify(tagData),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                setTags(data.data);
+            }
+        } catch (error) {
+            console.log("Error occured while adding tags.", error);
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const addTask = async (taskData) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${base_url}/tasks`, {
+                method: "POST",
+                headers: getHeader(),
+                body: JSON.stringify(taskData),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                toast.success("Task added successfully.");
+                setTasks((prev) => [...prev, data.data]);
+                return true;
+            }
+        } catch (error) {
+            console.log("Error occured while adding task.", error.message);
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadTasks = async (url) => {
+        setLoading(true);
+        try {
+            const response = await fetch(url, {
+                headers: getHeader(),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                setTasks(data.data);
+            }
+        } catch (error) {
+            console.log("Error occured while fetching tasks.", error.message);
             toast.error("Something went wrong. Please try again.");
             return false;
         } finally {
@@ -348,13 +479,20 @@ export const DataProvider = ({ children }) => {
                 addProject,
                 setLoading,
                 loadProjects,
+                loadProject,
                 teams,
                 addTeam,
                 loadTeams,
                 getTeamByName,
                 users,
                 loadUsers,
-                updateTeam
+                updateTeam,
+                tags,
+                addTag,
+                loadTags,
+                tasks,
+                addTask,
+                loadTasks,
             }}
         >
             {children}

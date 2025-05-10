@@ -24,8 +24,15 @@ const taskSchema = z.object({
         .array(z.string({ required_error: "Tag is required." }))
         .min(1, { message: "Atleast 1 Owner is required." }),
     timeToComplete: z
-        .number({ required_error: "Completion day is required" })
+        .string({ required_error: "Completion day is required" })
         .min(1, { message: "Invalid completion day." }),
-    status: z.enum(["To Do", "In Progress", "Completed", "Blocked"]),
+    status: z
+        .enum(["To Do", "In Progress", "Completed", "Blocked"])
+        .describe(
+            "Allowed values: 'To Do', 'In Progress', 'Completed', 'Blocked'."
+        ),
+    priority: z
+        .enum(["Low", "High", "Medium"])
+        .describe("Allowed values: 'Low', 'High', 'Medium'."),
 });
 export default taskSchema;

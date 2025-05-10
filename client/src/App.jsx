@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import ProjectsPage from "./pages/ProjectsPage";
 import TeamPage from "./pages/TeamPage";
 import TeamDetails from "./pages/TeamDetails";
 import ReportPage from "./pages/ReportPage";
@@ -12,6 +11,8 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Loader from "./components/Loader";
 import useData from "./hooks/useData";
 import LoginPage from "./pages/LoginPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 const isAuthenticated = false; // Replace this with actual authentication logic
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
                     }
                 >
                     <Route path="/" element={<HomePage />} />
+                    <Route
+                        path="/project-details"
+                        element={<ProjectDetailsPage />}
+                    />
                     <Route path="/projects" element={<ProjectsPage />} />
                     <Route path="/team" element={<TeamPage />} />
                     <Route path="/teamdetails" element={<TeamDetails />} />

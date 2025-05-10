@@ -30,14 +30,20 @@ const taskSchema = new mongoose.Schema(
             },
         ], // Array of tags
         timeToComplete: {
-            type: Number,
+            type: String,
             required: true,
-        }, // Number of days to complete the task
+        }, // Estimate date to complete the task
         status: {
             type: String,
             enum: ["To Do", "In Progress", "Completed", "Blocked"],
             // Enum for task status
             default: "To Do",
+        }, // Task status
+        priority: {
+            type: String,
+            enum: ["Low", "High", "Medium"],
+            // Enum for task status
+            default: "Medium",
         }, // Task status
     },
     {

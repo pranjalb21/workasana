@@ -16,6 +16,8 @@ export const createTag = async (req, res) => {
             .json({ message: "Tag created successfully.", data: newTag });
     } catch (error) {
         // Combine all errors in an array
+        console.log(error.message);
+
         const errors = generateError(error);
 
         // Return error response

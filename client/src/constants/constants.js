@@ -32,3 +32,18 @@ export const generateNameKeyword = (name) => {
         nameArray[nameArray.length - 1][0].toUpperCase();
     return nameKeyword;
 };
+
+export const getDateString = (dateString) => {
+    // console.log(dateString);
+
+    const date = new Date(dateString);
+
+    // Options for formatting
+    const options = { day: "numeric", month: "long", year: "numeric" };
+
+    // Format the date
+    const formattedDate = date.toLocaleDateString("en-us", options);
+    // .replace(",", "");
+    // console.log(formattedDate); // Outputs: 21 May 2025
+    return formattedDate;
+};
