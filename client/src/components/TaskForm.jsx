@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useData } from "../contexts/application.context";
 import { base_url } from "../constants/constants";
 
-export default function TaskForm({ setShowTask }) {
+export default function TaskForm({ setShowTask, selectedProject }) {
     const defaultData = {
         name: "",
-        project: "",
+        project: selectedProject ? selectedProject._id : "",
         team: "",
         owners: [],
         tags: [],
@@ -146,13 +146,18 @@ export default function TaskForm({ setShowTask }) {
                                     name="project"
                                     id="project"
                                     className="form-select"
-                                    value={formData.project}
+                                    value={
+                                        selectedProject
+                                            ? selectedProject._id
+                                            : formData.project
+                                    }
                                     onChange={(e) =>
                                         setFormData((prev) => ({
                                             ...prev,
                                             [e.target.name]: e.target.value,
                                         }))
                                     }
+                                    disabled={selectedProject ? true : false}
                                 >
                                     <option value="">Select Project</option>
                                     {projects &&

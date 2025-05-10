@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import ProjectTaskForm from "../components/ProjectTaskForm";
 import { useLocation, useSearchParams } from "react-router-dom";
 import {
     base_url,
@@ -9,12 +8,12 @@ import {
     loadColors,
 } from "../constants/constants";
 import { useData } from "../contexts/application.context";
+import TaskForm from "../components/TaskForm";
 
 export default function ProjectDetailsPage() {
     const [showProjectTask, setShowProjectTask] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedProject, setSelectedProject] = useState(null);
-    const [selectedProjectTask, setSelectedProjectTask] = useState(null);
     const projectID = searchParams.get("projectID");
     const { loadProject, tasks, loadTasks } = useData();
 
@@ -30,8 +29,6 @@ export default function ProjectDetailsPage() {
         tags.forEach((tag) => {
             tag.addEventListener("click", () => {
                 tags.forEach((t) => t.classList.remove("selected"));
-                // console.log("clicked");
-
                 tag.classList.add("selected");
             });
         });
@@ -42,11 +39,14 @@ export default function ProjectDetailsPage() {
     }, []);
     useEffect(() => {
         loadColors();
-    }, [selectedProject, selectedProjectTask]);
+    }, [selectedProject, tasks]);
     return (
         <Layout>
             {showProjectTask && (
-                <ProjectTaskForm setShowProjectTask={setShowProjectTask} />
+                <TaskForm
+                    setShowTask={setShowProjectTask}
+                    selectedProject={selectedProject}
+                />
             )}
             <section className="container mt-5">
                 {selectedProject ? (
@@ -55,68 +55,51 @@ export default function ProjectDetailsPage() {
                         <p className="projectDescription">
                             {selectedProject.description}
                         </p>
-
+                        <div className="row justify-content-between pe-4">
+                            <div className="col-md-6">
+                                <span>Sort by:</span>
+                                <ul className="tag-container">
+                                    <li className="tags" onClick={handleSelect}>
+                                        Priority Low-High
+                                    </li>
+                                    <li className="tags" onClick={handleSelect}>
+                                        Priority High-Low
+                                    </li>
+                                    <li className="tags" onClick={handleSelect}>
+                                        Newest First
+                                    </li>
+                                    <li className="tags" onClick={handleSelect}>
+                                        Oldest First
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="d-flex gap-3 justify-content-end h-100 align-items-start">
+                                    <div className="">
+                                        <select
+                                            name=""
+                                            id=""
+                                            className="form-select-sm"
+                                        >
+                                            <option value="">Filter</option>
+                                        </select>
+                                    </div>
+                                    <div className="">
+                                        <button
+                                            onClick={() =>
+                                                setShowProjectTask(true)
+                                            }
+                                            className="btn btn-sm btn-primary"
+                                        >
+                                            + New Task
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="mt-3">
                             {tasks && tasks?.length > 0 ? (
                                 <>
-                                    <div className="row justify-content-between pe-4">
-                                        <div className="col-md-6">
-                                            <span>Sort by:</span>
-                                            <ul className="tag-container">
-                                                <li
-                                                    className="tags"
-                                                    onClick={handleSelect}
-                                                >
-                                                    Priority Low-High
-                                                </li>
-                                                <li
-                                                    className="tags"
-                                                    onClick={handleSelect}
-                                                >
-                                                    Priority High-Low
-                                                </li>
-                                                <li
-                                                    className="tags"
-                                                    onClick={handleSelect}
-                                                >
-                                                    Newest First
-                                                </li>
-                                                <li
-                                                    className="tags"
-                                                    onClick={handleSelect}
-                                                >
-                                                    Oldest First
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="d-flex gap-3 justify-content-end h-100 align-items-start">
-                                                <div className="">
-                                                    <select
-                                                        name=""
-                                                        id=""
-                                                        className="form-select-sm"
-                                                    >
-                                                        <option value="">
-                                                            Filter
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <div className="">
-                                                    <button
-                                                        onClick={() =>
-                                                            setShowProjectTask(
-                                                                true
-                                                            )
-                                                        }
-                                                        className="btn btn-sm btn-primary"
-                                                    >
-                                                        + New Task
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <table className="table table-bordered table-sm">
                                         <thead className="table-primary">
                                             <tr>
