@@ -32,7 +32,8 @@ const taskSchema = z.object({
             "Allowed values: 'To Do', 'In Progress', 'Completed', 'Blocked'."
         ),
     priority: z
-        .enum(["Low", "High", "Medium"])
+        .number({ required_error: "Priority is required." })
+        // .enum([1, 2, 3])
         .describe("Allowed values: 'Low', 'High', 'Medium'."),
 });
 export default taskSchema;

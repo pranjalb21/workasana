@@ -98,6 +98,10 @@ main {
     color: rgb(82, 133, 62);
     background-color: rgb(236, 247, 222);
 }
+.blocked {
+    color: rgb(225, 0, 0);
+    background-color: rgba(250, 43, 6, 0.411);
+}
 .pcard .description,
 .tcard .description {
     font-size: 14px;

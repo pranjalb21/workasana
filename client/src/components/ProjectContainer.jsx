@@ -3,17 +3,34 @@ import ProjectCard from "./ProjectCard";
 import { useData } from "../contexts/application.context";
 import { base_url } from "../constants/constants";
 
-export default function ProjectContainer({ type = "", project_status }) {
+export default function ProjectContainer({
+    type = "",
+    project_status,
+    keyword,
+}) {
     const { loadProjects, projects } = useData();
 
+    const loadData = async () => {
+        let url = new URL(`${base_url}/projects`);
+
+        if (type) {
+            url.pathname += `/${type}`;
+        }
+
+        const params = new URLSearchParams();
+        if (project_status) params.set("project_status", project_status);
+        if (keyword) params.set("keyword", keyword);
+
+        url.search = params.toString(); // Automatically appends '?' only if parameters exist
+
+        await loadProjects(url.toString());
+    };
     useEffect(() => {
-        loadProjects(`${base_url}/projects/${type}`);
+        loadData();
     }, []);
     useEffect(() => {
-        loadProjects(
-            `${base_url}/projects/${type}?project_status=${project_status}`
-        );
-    }, [project_status]);
+        loadData();
+    }, [project_status, keyword]);
     return (
         <div className="d-flex flex-wrap gap-3 mt-3">
             {projects && projects?.length > 0 ? (

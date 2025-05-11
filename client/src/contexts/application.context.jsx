@@ -17,6 +17,7 @@ export const DataProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [teams, setTeams] = useState([]);
+    const [selectedTask, setSelectedTask] = useState(null);
 
     const loadUser = async () => {
         setLoading(true);
@@ -437,6 +438,59 @@ export const DataProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    const updateTask = async (taskData, taskId) => {
+        setLoading(true);
+
+        try {
+            const response = await fetch(`${base_url}/tasks/${taskId}`, {
+                method: "PUT",
+                headers: getHeader(),
+                body: JSON.stringify(taskData),
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                toast.success("Task updated successfully.");
+                setSelectedTask(data.data);
+                return true;
+            }
+        } catch (error) {
+            console.log("Error occured while updaing task.", error.message);
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadTask = async (taskid) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${base_url}/tasks/${taskid}`, {
+                headers: getHeader(),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+            } else {
+                setSelectedTask(data.data);
+            }
+        } catch (error) {
+            console.log("Error occured while fetching task.", error.message);
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const loadTasks = async (url) => {
         setLoading(true);
@@ -462,6 +516,40 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const updateProjectStatus = async (projectId, status) => {
+        try {
+            const response = await fetch(
+                `${base_url}/projects/status/${projectId}`,
+                {
+                    headers: getHeader(),
+                    method: "PATCH",
+                    body: JSON.stringify(status),
+                }
+            );
+            const data = await response.json();
+
+            if (!response.ok) {
+                toast.error(data.error);
+                if (data.errors) {
+                    data.errors.foreach((error) => toast.error(error));
+                }
+                return false;
+            } else {
+                toast.success(data.message);
+                return data.data;
+            }
+        } catch (error) {
+            console.log(
+                "Error occured while updating project status.",
+                error.message
+            );
+            toast.error("Something went wrong. Please try again.");
+            return false;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         loadUser();
     }, []);
@@ -480,6 +568,7 @@ export const DataProvider = ({ children }) => {
                 setLoading,
                 loadProjects,
                 loadProject,
+                updateProjectStatus,
                 teams,
                 addTeam,
                 loadTeams,
@@ -493,6 +582,9 @@ export const DataProvider = ({ children }) => {
                 tasks,
                 addTask,
                 loadTasks,
+                updateTask,
+                loadTask,
+                selectedTask,
             }}
         >
             {children}

@@ -47,3 +47,10 @@ export const getDateString = (dateString) => {
     // console.log(formattedDate); // Outputs: 21 May 2025
     return formattedDate;
 };
+
+export const statusList = ["To Do", "In Progress", "Completed", "Blocked"];
+export const priorityList = [
+    { value: 3, name: "Low" },
+    { value: 2, name: "Medium" },
+    { value: 1, name: "High" },
+];

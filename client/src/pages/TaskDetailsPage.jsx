@@ -9,65 +9,62 @@ const statusList = ["To Do", "In Progress", "Completed", "Blocked"];
 export default function TaskDetailsPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const taskID = searchParams.get("taskID");
-    const [selectedTask, setSelectedTask] = useState(null);
-    const { setLoading } = useData();
     const [formData, setFormData] = useState({});
-    const loadTask = async (taskid) => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${base_url}/tasks/${taskid}`, {
-                headers: getHeader(),
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                toast.error(data.error);
-                if (data.errors) {
-                    data.errors.foreach((error) => toast.error(error));
-                }
-            } else {
-                // console.log(data.data);
-                const defaultData = {
-                    name: data.data.name,
-                    project: data.data.project._id,
-                    team: data.data.team._id,
-                    owners: data.data.owners.map((owner) => owner._id),
-                    tags: data.data.tags.map((tag) => tag._id),
-                    timeToComplete: data.data.timeToComplete,
-                    status: data.data.status,
-                    priority: data.data.priority,
-                };
-                setFormData(defaultData);
-                setSelectedTask(data.data);
-            }
-        } catch (error) {
-            console.log("Error occured while fetching task.", error.message);
-            toast.error("Something went wrong. Please try again.");
-            return false;
-        } finally {
-            setLoading(false);
-        }
-    };
+    const [errors, setErrors] = useState(null);
+    const { loadTask, selectedTask, updateTask } = useData();
 
     const getTimeDifference = (dueDate) => {
         const currentDate = new Date();
         const givenDate = new Date(dueDate); // Example date
 
         const timeDifference = givenDate - currentDate; // Difference in milliseconds
-        const daysDifference = Math.floor(
+        const daysDifference = Math.ceil(
             timeDifference / (1000 * 60 * 60 * 24)
         );
 
         // console.log(`Difference: ${daysDifference} days`);
         return daysDifference > 0 ? daysDifference : 0;
     };
+    const validateInput = () => {
+        const inputError = {};
+        if (!formData.status) {
+            inputError.status = "Please select task status.";
+        }
+        setErrors(inputError);
+        return Object.keys(inputError).length;
+    };
+
+    const handleSubmit = async () => {
+        if (!validateInput()) {
+            await updateTask(formData, selectedTask._id);
+        }
+    };
+    const loadData = async () => {
+        await loadTask(taskID);
+    };
     useEffect(() => {
-        loadTask(taskID);
+        loadData();
     }, [taskID, searchParams]);
+    useEffect(() => {
+        if (selectedTask) {
+            const defaultData = {
+                name: selectedTask.name,
+                project: selectedTask.project._id,
+                team: selectedTask.team._id,
+                owners: selectedTask.owners.map((owner) => owner._id),
+                tags: selectedTask.tags.map((tag) => tag._id),
+                timeToComplete: selectedTask.timeToComplete,
+                status: selectedTask.status,
+                priority: selectedTask.priority,
+            };
+            setFormData(defaultData);
+        }
+    }, [selectedTask]);
     return (
         <Layout>
             <section className="container mt-5 px-4">
                 <div className="">
-                    <p className="back" style={{marginLeft:"0.1rem"}}>
+                    <p className="back" style={{ marginLeft: "0.1rem" }}>
                         <NavLink
                             className="text-decoration-none backArrow"
                             to={"/"}
@@ -139,15 +136,24 @@ export default function TaskDetailsPage() {
                                                         (status) => (
                                                             <option
                                                                 value={status}
+                                                                key={status}
                                                             >
                                                                 {status}
                                                             </option>
                                                         )
                                                     )}
                                                 </select>
-                                                <button className="btn btn-outline-info btn-sm ms-2 mt-0">
+                                                <button
+                                                    className="btn btn-outline-info btn-sm ms-2 mt-0"
+                                                    onClick={handleSubmit}
+                                                >
                                                     Update
                                                 </button>
+                                                {errors?.status && (
+                                                    <p className="text-danger m-0">
+                                                        {errors.status}
+                                                    </p>
+                                                )}
                                             </td>
                                         </tr>
                                         <tr>
@@ -155,7 +161,13 @@ export default function TaskDetailsPage() {
                                             <td>
                                                 {getTimeDifference(
                                                     selectedTask.timeToComplete
-                                                )}
+                                                )}{" "}
+                                                Day
+                                                {getTimeDifference(
+                                                    selectedTask.timeToComplete
+                                                ) > 1
+                                                    ? "s"
+                                                    : ""}
                                             </td>
                                         </tr>
                                     </tbody>

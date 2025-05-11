@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useData } from "../contexts/application.context";
-import { base_url } from "../constants/constants";
+import { base_url, priorityList, statusList } from "../constants/constants";
 
 export default function TaskForm({ setShowTask, selectedProject }) {
     const defaultData = {
@@ -13,8 +13,6 @@ export default function TaskForm({ setShowTask, selectedProject }) {
         status: "",
         priority: "",
     };
-    const statusList = ["To Do", "In Progress", "Completed", "Blocked"];
-    const priorityList = ["Low", "Medium", "High"];
     const [formData, setFormData] = useState(defaultData);
     const [errors, setErrors] = useState({});
     const {
@@ -49,7 +47,7 @@ export default function TaskForm({ setShowTask, selectedProject }) {
         if (!formData.status) {
             inputError.status = "Please select task status.";
         }
-        if (!formData.priority || formData.priority.length < 1) {
+        if (!formData.priority || formData.priority < 1) {
             inputError.priority = "Please select task priority.";
         }
         const days = calculateDaysFromToday(formData.timeToComplete);
@@ -353,7 +351,7 @@ export default function TaskForm({ setShowTask, selectedProject }) {
                                     onChange={(e) =>
                                         setFormData((prev) => ({
                                             ...prev,
-                                            [e.target.name]: e.target.value,
+                                            [e.target.name]: +e.target.value,
                                         }))
                                     }
                                 >
@@ -361,8 +359,11 @@ export default function TaskForm({ setShowTask, selectedProject }) {
                                         Select Priority
                                     </option>
                                     {priorityList?.map((priority) => (
-                                        <option value={priority} key={priority}>
-                                            {priority}
+                                        <option
+                                            value={priority.value}
+                                            key={priority.value}
+                                        >
+                                            {priority.name}
                                         </option>
                                     ))}
                                 </select>

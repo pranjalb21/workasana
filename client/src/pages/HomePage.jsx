@@ -18,6 +18,7 @@ export default function HomePage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const task_status = searchParams.get("task_status") || "";
     const project_status = searchParams.get("project_status") || "";
+    const keyword = searchParams.get("keyword") || "";
 
     const handleStatusChange = (type, value) => {
         setSearchParams((prevParams) => {
@@ -31,6 +32,10 @@ export default function HomePage() {
                 value
                     ? newParams.set("task_status", value)
                     : newParams.delete("task_status");
+            } else if (type === "keyword") {
+                value
+                    ? newParams.set("keyword", value)
+                    : newParams.delete("keyword");
             }
 
             return newParams;
@@ -53,6 +58,9 @@ export default function HomePage() {
                             placeholder="Search"
                             aria-label="Username"
                             aria-describedby="basic-addon1"
+                            onChange={(e) =>
+                                handleStatusChange("keyword", e.target.value)
+                            }
                         />
                         <span className="input-group-text" id="basic-addon1">
                             <CiSearch />
@@ -85,6 +93,7 @@ export default function HomePage() {
                         </button>
                     </div>
                     <ProjectContainer
+                        keyword={keyword}
                         type={"self"}
                         project_status={project_status}
                     />
@@ -105,7 +114,9 @@ export default function HomePage() {
                         >
                             <option value="">Select Status</option>
                             {statusList.map((status) => (
-                                <option value={status}>{status}</option>
+                                <option value={status} key={status}>
+                                    {status}
+                                </option>
                             ))}
                         </select>
                         <button
@@ -115,7 +126,11 @@ export default function HomePage() {
                             + New Task
                         </button>
                     </div>
-                    <TaskContainer type={"self"} task_status={task_status} />
+                    <TaskContainer
+                        keyword={keyword}
+                        type={"self"}
+                        task_status={task_status}
+                    />
                 </section>
             </div>
         </Layout>
