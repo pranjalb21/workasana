@@ -39,7 +39,7 @@ export default function TeamPage() {
                                 <div className="card bg-light">
                                     <NavLink
                                         className="text-decoration-none"
-                                        to={`/teamdetails?teamName=${team.name}`}
+                                        to={`/team-details?teamName=${team.name}`}
                                     >
                                         <div className="card-body">
                                             <h5 className="card-title">

@@ -30,10 +30,18 @@ export const createProject = async (req, res) => {
 
 export const getOwnProjects = async (req, res) => {
     try {
-        const teams = await Project.find({ owner: req.user._id });
+        const { project_status } = req.query;
+        let projects = project_status
+            ? await Project.find({
+                  status: project_status,
+                  owner: req.user._id,
+              })
+            : await Project.find({ owner: req.user._id });
+        // console.log(projects);
+
         res.status(200).json({
             message: "Projects fetched successfully.",
-            data: teams,
+            data: projects,
         });
     } catch (error) {
         // Return error response
@@ -46,10 +54,13 @@ export const getOwnProjects = async (req, res) => {
 
 export const getProjects = async (req, res) => {
     try {
-        const teams = await Project.find();
+        const { project_status } = req.query;
+        let projects = project_status
+            ? await Project.find({ status: project_status })
+            : await Project.find();
         res.status(200).json({
             message: "Projects fetched successfully.",
-            data: teams,
+            data: projects,
         });
     } catch (error) {
         // Return error response

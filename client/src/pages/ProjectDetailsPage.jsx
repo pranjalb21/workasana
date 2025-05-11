@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { useLocation, useSearchParams } from "react-router-dom";
+import {
+    NavLink,
+    useLocation,
+    useNavigate,
+    useSearchParams,
+} from "react-router-dom";
 import {
     base_url,
     generateNameKeyword,
@@ -16,6 +21,7 @@ export default function ProjectDetailsPage() {
     const [selectedProject, setSelectedProject] = useState(null);
     const projectID = searchParams.get("projectID");
     const { loadProject, tasks, loadTasks } = useData();
+    const navigate = useNavigate();
 
     const loadData = async () => {
         const data = await loadProject(projectID);
@@ -49,6 +55,14 @@ export default function ProjectDetailsPage() {
                 />
             )}
             <section className="container mt-5">
+                <p className="back" style={{ marginLeft: "0.1rem" }}>
+                    <NavLink
+                        className="text-decoration-none backArrow"
+                        to={"/"}
+                    >
+                        <span>&larr;</span> Back to Dashboard
+                    </NavLink>
+                </p>
                 {selectedProject ? (
                     <>
                         <h3 className="fs-3">{selectedProject.name}</h3>
@@ -208,7 +222,14 @@ export default function ProjectDetailsPage() {
                                                             {task.status}
                                                         </span>
                                                     </td>
-                                                    <td className="goToTask">
+                                                    <td
+                                                        className="goToTask"
+                                                        onClick={() =>
+                                                            navigate(
+                                                                `/task-details?taskID=${task._id}`
+                                                            )
+                                                        }
+                                                    >
                                                         <span>&rarr;</span>
                                                     </td>
                                                 </tr>

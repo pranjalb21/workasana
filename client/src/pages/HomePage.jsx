@@ -9,11 +9,33 @@ import { useData } from "../contexts/application.context";
 import ProjectContainer from "../components/ProjectContainer";
 import { loadColors } from "../constants/constants";
 import TaskContainer from "../components/TaskContainer";
+import { useSearchParams } from "react-router-dom";
 
-
+const statusList = ["To Do", "In Progress", "Completed", "Blocked"];
 export default function HomePage() {
     const [showProject, setShowProject] = useState(false);
     const [showTask, setShowTask] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const task_status = searchParams.get("task_status") || "";
+    const project_status = searchParams.get("project_status") || "";
+
+    const handleStatusChange = (type, value) => {
+        setSearchParams((prevParams) => {
+            const newParams = new URLSearchParams(prevParams);
+
+            if (type === "project") {
+                value
+                    ? newParams.set("project_status", value)
+                    : newParams.delete("project_status");
+            } else if (type === "task") {
+                value
+                    ? newParams.set("task_status", value)
+                    : newParams.delete("task_status");
+            }
+
+            return newParams;
+        });
+    };
 
     useEffect(() => {
         loadColors();
@@ -47,19 +69,25 @@ export default function HomePage() {
                             id="projectFilter"
                             className="form-select-sm bg-light ms-3 border-0 px-2 select"
                             style={{ padding: "8px 0px" }}
+                            onChange={(e) =>
+                                handleStatusChange("project", e.target.value)
+                            }
                         >
-                            <option value="">Filter</option>
+                            <option value="">Select Status</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Completed">Completed</option>
                         </select>
                         <button
                             className="btn btn-sm btn-primary ms-auto"
-                            onClick={() => setShowProject((prev) => !prev)}
+                            onClick={() => setShowProject(true)}
                         >
                             + New Project
                         </button>
                     </div>
-                    <ProjectContainer type={"self"} />
+                    <ProjectContainer
+                        type={"self"}
+                        project_status={project_status}
+                    />
                 </section>
                 <section className="mt-5 mb-4">
                     <div className="d-flex ">
@@ -71,10 +99,14 @@ export default function HomePage() {
                             id="projectFilter"
                             className="form-select-sm bg-light ms-3 border-0 px-2 select"
                             style={{ padding: "8px 0px" }}
+                            onChange={(e) =>
+                                handleStatusChange("task", e.target.value)
+                            }
                         >
-                            <option value="">Filter</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
+                            <option value="">Select Status</option>
+                            {statusList.map((status) => (
+                                <option value={status}>{status}</option>
+                            ))}
                         </select>
                         <button
                             className="btn btn-sm btn-primary ms-auto"
@@ -83,7 +115,7 @@ export default function HomePage() {
                             + New Task
                         </button>
                     </div>
-                    <TaskContainer type={"self"} />
+                    <TaskContainer type={"self"} task_status={task_status} />
                 </section>
             </div>
         </Layout>

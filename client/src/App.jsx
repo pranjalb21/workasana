@@ -13,6 +13,7 @@ import useData from "./hooks/useData";
 import LoginPage from "./pages/LoginPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
+import TaskDetailsPage from "./pages/TaskDetailsPage";
 const isAuthenticated = false; // Replace this with actual authentication logic
 
 function App() {
@@ -37,9 +38,10 @@ function App() {
                     />
                     <Route path="/projects" element={<ProjectsPage />} />
                     <Route path="/team" element={<TeamPage />} />
-                    <Route path="/teamdetails" element={<TeamDetails />} />
+                    <Route path="/team-details" element={<TeamDetails />} />
                     <Route path="/reports" element={<ReportPage />} />
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/task-details" element={<TaskDetailsPage />} />
                 </Route>
             </Routes>
         </>

@@ -31,7 +31,12 @@ export const createTask = async (req, res) => {
 export const getTaskById = async (req, res) => {
     try {
         const { taskId } = req.params;
-        const task = await Task.findById(taskId).populate("owners");
+        const task = await Task.findById(taskId).populate([
+            "owners",
+            "project",
+            "team",
+            "tags",
+        ]);
         if (!task) {
             return res.status(404).json({ error: "Task not found." });
         }

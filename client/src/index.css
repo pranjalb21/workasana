@@ -90,7 +90,7 @@ main {
     color: black;
     background-color: rgb(233, 232, 232);
 }
-.todo{
+.todo {
     color: rgb(95, 95, 6);
     background-color: rgb(220, 197, 138);
 }
@@ -122,6 +122,7 @@ main {
     padding: 1rem;
     height: 10rem;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .namecard-container {
@@ -255,7 +256,7 @@ main {
     color: rgb(224, 59, 18);
     display: inline-block;
 }
-.tcard .heading:hover .go {
+.tcard:hover .go {
     transform: translateX(5px);
     transition: ease-in-out 0.3s;
     color: rgb(224, 59, 18);
@@ -327,23 +328,23 @@ main {
     align-items: center;
 }
 
-.backArrow{
+.backArrow {
     font-size: 0.9rem;
 }
-.backArrow:hover{
+.backArrow:hover {
     font-size: 1rem !important;
 }
-.backArrow:hover span{
+.backArrow:hover span {
     margin: -2px 2px 0 -2px;
     transition: 0.2s ease-in-out;
 }
-.deleteTeamMemberBtn{
+.deleteTeamMemberBtn {
     cursor: pointer;
     margin-top: -5px;
     transition: 0.2s ease-in-out;
     font-size: 1.3rem;
 }
-.deleteTeamMemberBtn:hover{
+.deleteTeamMemberBtn:hover {
     color: red;
     font-size: 1.5rem;
     margin: -5px 0 0 -2px;

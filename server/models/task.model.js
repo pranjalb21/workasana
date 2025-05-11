@@ -26,8 +26,10 @@ const taskSchema = new mongoose.Schema(
         ],
         tags: [
             {
-                type: String,
-            },
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Tag",
+                required: true,
+            }, // Refers to Tag model (tags)
         ], // Array of tags
         timeToComplete: {
             type: String,
