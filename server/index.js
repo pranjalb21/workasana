@@ -13,7 +13,7 @@ const app = express();
 const corsOptions = {
     origin: "*",
 };
-connectDB();
+await connectDB();
 
 app.use(express.json());
 app.use(cors(corsOptions));
