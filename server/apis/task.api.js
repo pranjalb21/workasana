@@ -117,7 +117,7 @@ export const getTasksByProject = async (req, res) => {
 
         const priorityOrder = { High: 3, Medium: 2, Low: 1 };
         if (priority) {
-            sort.priority = priority === "ascending" ? -1 : 1;
+            sort.priority = priority === "ascending" ? 1 : -1;
         }
 
         // console.log(sort);
