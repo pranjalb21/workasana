@@ -25,6 +25,11 @@ app.use(`/api/${process.env.API_VERSION}/projects`, projectRouter);
 app.use(`/api/${process.env.API_VERSION}/tags`, tagRouter);
 app.use(`/api/${process.env.API_VERSION}/reports`, reportRouter);
 
+
+app.get("/", async(req,res)=>{
+    res.status(200).json({message:"Welcome to Workasana Application."})
+})
+
 connectDB();
 
 app.listen(PORT, () => {
