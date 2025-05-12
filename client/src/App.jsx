@@ -4,7 +4,6 @@ import TeamPage from "./pages/TeamPage";
 import TeamDetails from "./pages/TeamDetails";
 import ReportPage from "./pages/ReportPage";
 import SettingsPage from "./pages/SettingsPage";
-import SignUpPage from "./pages/SignUpPage";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -14,6 +13,7 @@ import LoginPage from "./pages/LoginPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import TaskDetailsPage from "./pages/TaskDetailsPage";
+import SignUpPage from "./pages/SignUpPage";
 const isAuthenticated = false; // Replace this with actual authentication logic
 
 function App() {
