@@ -127,6 +127,12 @@ export const getTasksByProject = async (req, res) => {
         if (!tasks) {
             return res.status(404).json({ error: "No tasks found." });
         }
+        // Apply custom sorting in JavaScript if MongoDB sorting doesn't work
+        tasks = tasks.sort((a, b) => {
+            return priority === "descending"
+                ? a.priority - b.priority
+                : b.priority - a.priority;
+        });
 
         return res
             .status(200)
