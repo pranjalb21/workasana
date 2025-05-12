@@ -11,8 +11,7 @@ import reportRouter from "./routes/report.route.js";
 const PORT = process.env.PORT || 3000;
 const app = express();
 const corsOptions = {
-    origin: process.env.ORIGIN,
-    credentials: true,
+    origin: "*",
 };
 connectDB();
 
@@ -26,11 +25,9 @@ app.use(`/api/${process.env.API_VERSION}/projects`, projectRouter);
 app.use(`/api/${process.env.API_VERSION}/tags`, tagRouter);
 app.use(`/api/${process.env.API_VERSION}/reports`, reportRouter);
 
-
-app.get("/", async(req,res)=>{
-    res.status(200).json({message:"Welcome to Workasana Application."})
-})
-
+app.get("/", async (req, res) => {
+    res.status(200).json({ message: "Welcome to Workasana Application." });
+});
 
 app.listen(PORT, () => {
     console.log("Server is running on PORT:", PORT);
