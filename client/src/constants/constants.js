@@ -1,4 +1,4 @@
-export const base_url = `https://workasana-one.vercel.app/projects/api/v1`;
+export const base_url = `https://workasana-one.vercel.app/api/v1`;
 
 export function getRandomColor() {
     return "#" + Math.floor(Math.random() * 16777215).toString(16); // Random hex color
