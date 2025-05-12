@@ -498,6 +498,7 @@ export const DataProvider = ({ children }) => {
             const response = await fetch(url, {
                 headers: getHeader(),
             });
+
             const data = await response.json();
             if (!response.ok) {
                 toast.error(data.error);

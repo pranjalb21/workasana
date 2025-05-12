@@ -77,6 +77,28 @@ export const getOwnTasks = async (req, res) => {
         });
     }
 };
+export const getAllTasks = async (req, res) => {
+    try {
+        const task = await Task.find().populate([
+            "owners",
+            "project",
+            "team",
+            "tags",
+        ]);
+        if (!task) {
+            return res.status(404).json({ error: "No tasks found." });
+        }
+        return res
+            .status(200)
+            .json({ message: "Tasks fetched successfully.", data: task });
+    } catch (error) {
+        // Return error response
+        return res.status(500).json({
+            error: "Error occured while fetching task.",
+            message: error.message,
+        });
+    }
+};
 export const getTasksByProject = async (req, res) => {
     try {
         const { projectId, priority, created, status } = req.query;

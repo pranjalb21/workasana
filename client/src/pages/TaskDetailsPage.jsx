@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { NavLink, useSearchParams } from "react-router-dom";
-import { base_url, getDateString } from "../constants/constants";
+import {
+    base_url,
+    getDateString,
+    getTimeDifference,
+} from "../constants/constants";
 import { useData } from "../contexts/application.context";
 import { getHeader } from "../auth/addHeader";
 
@@ -13,18 +17,6 @@ export default function TaskDetailsPage() {
     const [errors, setErrors] = useState(null);
     const { loadTask, selectedTask, updateTask } = useData();
 
-    const getTimeDifference = (dueDate) => {
-        const currentDate = new Date();
-        const givenDate = new Date(dueDate); // Example date
-
-        const timeDifference = givenDate - currentDate; // Difference in milliseconds
-        const daysDifference = Math.ceil(
-            timeDifference / (1000 * 60 * 60 * 24)
-        );
-
-        // console.log(`Difference: ${daysDifference} days`);
-        return daysDifference > 0 ? daysDifference : 0;
-    };
     const validateInput = () => {
         const inputError = {};
         if (!formData.status) {
@@ -160,10 +152,12 @@ export default function TaskDetailsPage() {
                                             <th>Time Remaining:</th>
                                             <td>
                                                 {getTimeDifference(
+                                                    new Date(),
                                                     selectedTask.timeToComplete
                                                 )}{" "}
                                                 Day
                                                 {getTimeDifference(
+                                                    new Date(),
                                                     selectedTask.timeToComplete
                                                 ) > 1
                                                     ? "s"

@@ -44,7 +44,7 @@ export default function ProfileForm() {
         >
             <p className="fs-4 m-0 text-end">
                 Welcome{" "}
-                <span className="fs-3 fw-medium">{profileDetails.name}</span>
+                <span className="fs-3 fw-medium text-success">{profileDetails.name}</span>
             </p>
             <hr className="m-1" />
             <section className="px-2">
@@ -59,14 +59,15 @@ export default function ProfileForm() {
                             type="text"
                             name="name"
                             id="name"
-                            className="form-control"
+                            className="form-control text-success"
                             value={profile.name}
-                            onChange={(e) =>
-                                setProfile((prev) => ({
-                                    ...prev,
-                                    [e.target.name]: e.target.value,
-                                }))
-                            }
+                            disabled
+                            // onChange={(e) =>
+                            //     setProfile((prev) => ({
+                            //         ...prev,
+                            //         [e.target.name]: e.target.value,
+                            //     }))
+                            // }
                         />
                         {errors.name && (
                             <p className="text-danger m-0">
@@ -82,14 +83,15 @@ export default function ProfileForm() {
                             type="text"
                             name="email"
                             id="email"
-                            className="form-control"
+                            disabled
+                            className="form-control text-success"
                             value={profile.email}
-                            onChange={(e) =>
-                                setProfile((prev) => ({
-                                    ...prev,
-                                    [e.target.name]: e.target.value,
-                                }))
-                            }
+                            // onChange={(e) =>
+                            //     setProfile((prev) => ({
+                            //         ...prev,
+                            //         [e.target.name]: e.target.value,
+                            //     }))
+                            // }
                         />
                         {errors.email && (
                             <p className="text-danger m-0">
@@ -97,7 +99,7 @@ export default function ProfileForm() {
                             </p>
                         )}
                     </div>
-                    <div className="mb-2">
+                    {/* <div className="mb-2">
                         <label htmlFor="password" className="form-label">
                             Password
                         </label>
@@ -143,7 +145,7 @@ export default function ProfileForm() {
                         <button className="btn btn-outline-primary btn-sm">
                             Update
                         </button>
-                    </div>
+                    </div> */}
                 </form>
             </section>
         </div>

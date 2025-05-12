@@ -54,3 +54,14 @@ export const priorityList = [
     { value: 2, name: "Medium" },
     { value: 1, name: "High" },
 ];
+
+export const getTimeDifference = (fromDate, toDate) => {
+    const currentDate = new Date(fromDate);
+    const givenDate = new Date(toDate); // Example date
+
+    const timeDifference = givenDate - currentDate; // Difference in milliseconds
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    // console.log(`Difference: ${daysDifference} days`);
+    return daysDifference > 0 ? daysDifference : 0;
+};
