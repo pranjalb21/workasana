@@ -14,6 +14,7 @@ const corsOptions = {
     origin: process.env.ORIGIN,
     credentials: true,
 };
+connectDB();
 
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -30,7 +31,6 @@ app.get("/", async(req,res)=>{
     res.status(200).json({message:"Welcome to Workasana Application."})
 })
 
-connectDB();
 
 app.listen(PORT, () => {
     console.log("Server is running on PORT:", PORT);
