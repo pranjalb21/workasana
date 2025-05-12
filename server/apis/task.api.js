@@ -115,7 +115,6 @@ export const getTasksByProject = async (req, res) => {
             sort.createdAt = 1; // Sort by oldest first
         }
 
-        const priorityOrder = { High: 3, Medium: 2, Low: 1 };
         if (priority) {
             sort.priority = priority === "ascending" ? 1 : -1;
         }
@@ -128,12 +127,6 @@ export const getTasksByProject = async (req, res) => {
         if (!tasks) {
             return res.status(404).json({ error: "No tasks found." });
         }
-        // Apply custom sorting in JavaScript if MongoDB sorting doesn't work
-        tasks = tasks.sort((a, b) => {
-            return priority === "descending"
-                ? b.priority - a.priority
-                : a.priority - b.priority;
-        });
 
         return res
             .status(200)
