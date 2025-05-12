@@ -13,7 +13,8 @@ import LoginPage from "./pages/LoginPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import TaskDetailsPage from "./pages/TaskDetailsPage";
-// import SignUpPage from "./pages/SignUpPage";
+import SignUpPage from "./pages/SignUpPage";
+
 const isAuthenticated = false; // Replace this with actual authentication logic
 
 function App() {
@@ -22,8 +23,8 @@ function App() {
         <>
             {loading && <Loader />}
             <Routes>
+                <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                {/* <Route path="/signup" element={<SignUpPage />} /> */}
 
                 {/* Protected Routes */}
                 <Route
