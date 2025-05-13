@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
-import { DataProvider } from "./contexts/Application.context.jsx";
+import { DataProvider } from "../contexts/Application.context.jsx";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
