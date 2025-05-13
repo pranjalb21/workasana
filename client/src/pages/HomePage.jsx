@@ -7,7 +7,7 @@ import ProjectForm from "../components/ProjectForm";
 import TaskForm from "../components/TaskForm";
 import { useData } from "../contexts/Application.context";
 import ProjectContainer from "../components/ProjectContainer";
-import { loadColors } from "../constants/constants";
+import { loadColors } from "../constants/Constants";
 import TaskContainer from "../components/TaskContainer";
 import { useSearchParams } from "react-router-dom";
 

@@ -5,7 +5,7 @@ import {
     base_url,
     getDateString,
     getTimeDifference,
-} from "../constants/constants";
+} from "../constants/Constants";
 import { useData } from "../contexts/Application.context";
 import { getHeader } from "../auth/addHeader";
 

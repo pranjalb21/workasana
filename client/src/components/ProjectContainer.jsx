@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ProjectCard from "./ProjectCard";
 import { useData } from "../contexts/Application.context";
-import { base_url } from "../constants/constants";
+import { base_url } from "../constants/Constants";
 
 export default function ProjectContainer({
     type = "",

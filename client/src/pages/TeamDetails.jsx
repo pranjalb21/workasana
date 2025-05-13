@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import { NavLink, useSearchParams } from "react-router-dom";
 import TeamMemberForm from "../components/TeamMemberForm";
 import { useData } from "../contexts/Application.context";
-import { generateNameKeyword, loadColors } from "../constants/constants";
+import { generateNameKeyword, loadColors } from "../constants/Constants";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function TeamDetails() {

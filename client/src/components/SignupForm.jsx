@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SiNginxproxymanager } from "react-icons/si";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { base_url } from "../constants/constants";
+import { base_url } from "../constants/Constants";
 import { toast } from "react-toastify";
 import { useData } from "../contexts/Application.context";
 

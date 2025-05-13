@@ -4,7 +4,7 @@ import {
     generateNameKeyword,
     getDateString,
     loadColors,
-} from "../constants/constants";
+} from "../constants/Constants";
 
 export default function TaskCard({ task }) {
     useEffect(() => {

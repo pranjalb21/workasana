@@ -12,7 +12,7 @@ import {
     getDateString,
     loadColors,
     statusList,
-} from "../constants/constants";
+} from "../constants/Constants";
 import { useData } from "../contexts/Application.context";
 import TaskForm from "../components/TaskForm";
 

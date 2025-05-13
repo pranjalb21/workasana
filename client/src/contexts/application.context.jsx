@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import useFetch from "../hooks/useFetch";
-import { base_url } from "../constants/constants";
+import { base_url } from "../constants/Constants";
 import { useNavigate } from "react-router-dom";
 import { getHeader } from "../auth/addHeader";
 

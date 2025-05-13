@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import TeamForm from "../components/TeamForm";
 import { NavLink } from "react-router-dom";
 import { useData } from "../contexts/Application.context";
-import { generateNameKeyword, loadColors } from "../constants/constants";
+import { generateNameKeyword, loadColors } from "../constants/Constants";
 
 const task = [
     { id: 11, name: "John Doe" },
