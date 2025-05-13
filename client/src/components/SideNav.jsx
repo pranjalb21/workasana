@@ -6,6 +6,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
 import Logo from "./Logo";
 import { useData } from "../contexts/Application.context";
+import { NavLink } from "react-router-dom";
 const dashBoardLinks = [
     { title: "Dashboard", link: "/", icon: <MdOutlineSpaceDashboard /> },
     { title: "Projects", link: "/projects", icon: <GoProject /> },
