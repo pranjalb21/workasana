@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { NavLink, useSearchParams } from "react-router-dom";
 import {
-    base_url,
     getDateString,
     getTimeDifference,
 } from "../constants/Constants";
 import { useData } from "../contexts/Application.context";
-import { getHeader } from "../auth/AddHeader";
 
 const statusList = ["To Do", "In Progress", "Completed", "Blocked"];
 export default function TaskDetailsPage() {

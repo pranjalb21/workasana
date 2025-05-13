@@ -1,12 +1,9 @@
-import React from "react";
-import { MdOutlineSpaceDashboard, MdLogin } from "react-icons/md";
+import { MdOutlineSpaceDashboard} from "react-icons/md";
 import { GoProject } from "react-icons/go";
 import { AiOutlineTeam } from "react-icons/ai";
 import { TbReportAnalytics } from "react-icons/tb";
-import { IoSettingsSharp, IoCreateOutline } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
-import { Link, NavLink } from "react-router-dom";
-import { RiLogoutBoxLine } from "react-icons/ri";
 import Logo from "./Logo";
 import { useData } from "../contexts/Application.context";
 const dashBoardLinks = [

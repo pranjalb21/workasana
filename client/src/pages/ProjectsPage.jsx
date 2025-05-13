@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProjectContainer from "../components/ProjectContainer";
 import Layout from "../components/Layout";
 import ProjectForm from "../components/ProjectForm";

@@ -3,7 +3,6 @@ import Layout from "../components/Layout";
 import {
     NavLink,
     useNavigate,
-    useParams,
     useSearchParams,
 } from "react-router-dom";
 import {

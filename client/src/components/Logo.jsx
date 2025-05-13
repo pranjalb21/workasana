@@ -1,4 +1,3 @@
-import React from "react";
 import { SiNginxproxymanager } from "react-icons/si";
 import { NavLink } from "react-router-dom";
 

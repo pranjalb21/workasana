@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useData } from "../contexts/Application.context";
 import { base_url, priorityList, statusList } from "../constants/Constants";
 

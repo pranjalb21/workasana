@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { useData } from "../contexts/Application.context";
 import { base_url, getTimeDifference } from "../constants/Constants";
