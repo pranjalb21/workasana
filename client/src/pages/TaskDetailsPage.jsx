@@ -7,7 +7,7 @@ import {
     getTimeDifference,
 } from "../constants/Constants";
 import { useData } from "../contexts/Application.context";
-import { getHeader } from "../auth/addHeader";
+import { getHeader } from "../auth/AddHeader";
 
 const statusList = ["To Do", "In Progress", "Completed", "Blocked"];
 export default function TaskDetailsPage() {
