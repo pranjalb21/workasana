@@ -13,12 +13,12 @@ import LoginPage from "./pages/LoginPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import TaskDetailsPage from "./pages/TaskDetailsPage";
-import SignUpPage from "./pages/SignUpPage";
+import SignUpPage from "./pages/SignupPage";
 
-const isAuthenticated = false; // Replace this with actual authentication logic
+// const isAuthenticated = false; // Replace this with actual authentication logic
 
 function App() {
-    const { loading } = useData();
+    const { loading,isAuthenticated } = useData();
     return (
         <>
             {loading && <Loader />}
