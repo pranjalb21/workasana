@@ -216,33 +216,32 @@ export default function ReportPage() {
                     Workasana Reports Overview
                 </h3>
                 <hr />
-                <div>
-                    {workPendingChart.labels.length > 0 && (
-                        <Bar
-                            options={optionsPendingWork}
-                            data={workPendingChart}
-                        />
-                    )}
+                <div className="row">
+                    <div className="col-md-6">
+                        {workPendingChart.labels.length > 0 && (
+                            <Bar
+                                options={optionsPendingWork}
+                                data={workPendingChart}
+                            />
+                        )}
+                    </div>
+                    <div className="col-md-6">
+                        {workDoneLastWeekChart.labels.length > 0 && (
+                            <Bar
+                                options={optionsCompletedWork}
+                                data={workDoneLastWeekChart}
+                            />
+                        )}
+                    </div>
+                    <div className="col-md-6">
+                        {taskStatusChart.labels.length > 0 && (
+                            <Doughnut
+                                options={optionsDoughnut}
+                                data={taskStatusChart}
+                            />
+                        )}
+                    </div>
                 </div>
-                <hr />
-                <div>
-                    {workDoneLastWeekChart.labels.length > 0 && (
-                        <Bar
-                            options={optionsCompletedWork}
-                            data={workDoneLastWeekChart}
-                        />
-                    )}
-                </div>
-                <hr />
-                <div>
-                    {taskStatusChart.labels.length > 0 && (
-                        <Doughnut
-                            options={optionsDoughnut}
-                            data={taskStatusChart}
-                        />
-                    )}
-                </div>
-                <div></div>
             </section>
         </Layout>
     );
