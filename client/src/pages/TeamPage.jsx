@@ -2,13 +2,9 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import TeamForm from "../components/TeamForm";
 import { NavLink } from "react-router-dom";
-import { useData } from "../contexts/Application.context";
 import { generateNameKeyword, loadColors } from "../constants/Constants";
+import { useData } from "../contexts/Application.context";
 
-const task = [
-    { id: 11, name: "John Doe" },
-    { id: 12, name: "Smith John" },
-];
 export default function TeamPage() {
     const [showTeamForm, setShowTeamForm] = useState(false);
     const { teams, loadTeams } = useData();
