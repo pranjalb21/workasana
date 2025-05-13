@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SiNginxproxymanager } from "react-icons/si";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useData } from "../contexts/application.context";
+import { useData } from "../contexts/Application.context";
 
 export default function LoginForm() {
     const navigate = useNavigate();

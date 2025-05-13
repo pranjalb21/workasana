@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import TeamForm from "../components/TeamForm";
 import { NavLink } from "react-router-dom";
-import { useData } from "../contexts/application.context";
+import { useData } from "../contexts/Application.context";
 import { generateNameKeyword, loadColors } from "../constants/constants";
 
 const task = [

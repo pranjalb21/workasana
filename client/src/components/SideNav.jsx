@@ -8,7 +8,7 @@ import { TbLogout2 } from "react-icons/tb";
 import { Link, NavLink } from "react-router-dom";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import Logo from "./Logo";
-import { useData } from "../contexts/application.context";
+import { useData } from "../contexts/Application.context";
 const dashBoardLinks = [
     { title: "Dashboard", link: "/", icon: <MdOutlineSpaceDashboard /> },
     { title: "Projects", link: "/projects", icon: <GoProject /> },

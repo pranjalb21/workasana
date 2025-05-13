@@ -13,7 +13,7 @@ import {
     loadColors,
     statusList,
 } from "../constants/constants";
-import { useData } from "../contexts/application.context";
+import { useData } from "../contexts/Application.context";
 import TaskForm from "../components/TaskForm";
 
 export default function ProjectDetailsPage() {

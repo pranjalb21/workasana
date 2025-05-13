@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useData } from "../contexts/application.context";
+import { useData } from "../contexts/Application.context";
 
 export default function TeamForm({ setShowTeamForm }) {
     const { addTeam, users, loadUsers } = useData();

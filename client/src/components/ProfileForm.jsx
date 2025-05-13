@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useData } from "../contexts/application.context";
+import { useData } from "../contexts/Application.context";
 const profileDetails = {
     id: 1,
     name: "John Doe",

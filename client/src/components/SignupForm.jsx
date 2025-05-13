@@ -4,7 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { base_url } from "../constants/constants";
 import { toast } from "react-toastify";
-import { useData } from "../contexts/application.context";
+import { useData } from "../contexts/Application.context";
 
 export default function SignupForm() {
     const navigate = useNavigate();
