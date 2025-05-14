@@ -7,11 +7,18 @@ Workasana is a task management and team collaboration tool where users can creat
 
 ## Tech Stack
 
-**Client:** React, Bootstrap, HTML, CSS, JavaScript
+**Client:**
+| ![React](https://img.shields.io/badge/React-212121?logo=react&labelColor=black) | ![Bootstrap](https://img.shields.io/badge/Bootstrap-212121?logo=bootstrap&labelColor=white) | ![HTML5](https://img.shields.io/badge/HTML-212121?logo=html5&labelColor=white) | ![CSS](https://img.shields.io/badge/CSS-212121?logo=css3&labelColor=grey) | ![JavaScript](https://img.shields.io/badge/JavaScript-212121?logo=javascript&labelColor=grey) |
+|---|---|---|---|---|
 
-**Server:** Node, Express
+**Server:**
+| ![NodeJS](https://img.shields.io/badge/NodeJS-212121?logo=nodedotjs&labelColor=grey) | ![ExpressJS](https://img.shields.io/badge/ExpressJS-212121?logo=express&labelColor=grey) | ![JWT](https://img.shields.io/badge/JWT-212121?logo=auth0&labelColor=white) | ![Bcrypt](https://img.shields.io/badge/Bcrypt-212121?logo=cryptpad&labelColor=whiblablackckte) | ![Mongoose](https://img.shields.io/badge/Mongoose-212121?logo=mongoose&labelColor=black)  |
+|---|---|---|---|---|
 
-**Database:** MongoDB
+
+**Database:**
+| [![Static Badge](https://img.shields.io/badge/MongoDB-212121?logo=mongodb&labelColor=grey)](#) |
+|---|
 
 
 
